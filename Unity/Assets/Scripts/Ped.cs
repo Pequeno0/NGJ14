@@ -38,4 +38,10 @@ public class Ped
         get;
         set;
     }
+
+    public bool DirectionZeroSent
+    {
+        get;
+        set;
+    }
 }

@@ -72,7 +72,6 @@ public class PedController : SingletonMonoBehaviour<PedController>
 
     }
 
-    private bool sentDirectionZero = false;
     public void FixedUpdate()
     {
         if (Network.isServer)
@@ -82,14 +81,14 @@ public class PedController : SingletonMonoBehaviour<PedController>
                 //if (ped.Transform.position.z < -0.7f && ped.Transform.position.z > -0.6f)
                 //    ped.Transform.position = new Vector3(ped.Transform.position.x, ped.Transform.position.y, -0.7f);
                 ped.Transform.rigidbody.velocity = ped.Direction * 1f * MOVEMENTSPEED;
-                
 
-                if (ped.Transform.rigidbody.velocity.magnitude != 0f || ped.LastPosSent == Vector3.zero || Vector3.Distance(ped.LastPosSent, ped.Transform.position) > 0.1f || !sentDirectionZero)
+
+                if (ped.Transform.rigidbody.velocity.magnitude != 0f || ped.LastPosSent == Vector3.zero || Vector3.Distance(ped.LastPosSent, ped.Transform.position) > 0.1f || !ped.DirectionZeroSent)
                 {
                     if (ped.Transform.rigidbody.velocity.normalized == Vector3.zero)
-                        sentDirectionZero = true;
+                        ped.DirectionZeroSent = true;
                     else
-                        sentDirectionZero = false;
+                        ped.DirectionZeroSent = false;
                     this.NetworkMessageController.UpdatePed(ped.Id, ped.Transform.position, ped.Transform.eulerAngles, ped.Transform.rigidbody.velocity.normalized, ped.IsTrading, ped.IsBackstabbing);
                     ped.LastPosSent = ped.Transform.position;
                 }
