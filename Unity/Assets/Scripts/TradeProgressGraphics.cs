@@ -28,7 +28,7 @@ public class TradeProgressGraphics : MonoBehaviour {
 
 			float total = progressSprites.Length;
 			
-			Debug.Log("Percentage: " + percentage);
+//			Debug.Log("Percentage: " + percentage);
 
 			for (int i = 0; i < progressSprites.Length; i++)
 			{
@@ -49,7 +49,7 @@ public class TradeProgressGraphics : MonoBehaviour {
 				spriteIndex = progressSprites.Length - 1;
 			}
 
-			Debug.Log("SpriteIndex: " + spriteIndex);
+//			Debug.Log("SpriteIndex: " + spriteIndex);
 
 			//If we found a Sprite to display, show it here
 			if (spriteIndex == -1)
