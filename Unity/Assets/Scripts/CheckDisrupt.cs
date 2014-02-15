@@ -8,10 +8,14 @@ public partial class TradingController : SingletonMonoBehaviour<TradingControlle
     {
         if (Network.isServer)
         {
+            Debug.Log("Server1");
             var hitPed = this.PedController.Peds.FirstOrDefault(p => p.Transform == collider.transform || p.Transform == collider.transform.parent);
 
             if (hitPed == null)
+            {
+                Debug.Log("hitPed was null");
                 return;
+            }
 
             var hitPlayer = this.PlayerController.Players.First(p => p.PedId == hitPed.Id);
 
@@ -19,9 +23,10 @@ public partial class TradingController : SingletonMonoBehaviour<TradingControlle
 
             var thisPlayer = this.PlayerController.Players.First(p => p.PedId == thisPed.Id);
 
+            Debug.Log("Finding trade");
             TradePair trade = trades.FirstOrDefault(d => d.InitiaterPlayer == hitPlayer || d.OtherPlayer == hitPlayer
                                             && (d.InitiaterPlayer.PedId != thisPed.Id || d.OtherPlayer.PedId != thisPed.Id));
-            Debug.Log("Finding trade");
+
             if (trade != null)
             {
                 Debug.Log("Trying to disrupt");
@@ -29,6 +34,7 @@ public partial class TradingController : SingletonMonoBehaviour<TradingControlle
                 RaycastHit hit;
                 if (Physics.Raycast(new Ray(pos, collider.transform.position - pos), out hit, 5f))
                 {
+                    Debug.Log("Raycast hit something");
                     if (hit.collider == trade.Initiater.collider || hit.collider == trade.Other.collider)
                     {
                         Debug.Log("Disrupting!");
@@ -39,7 +45,11 @@ public partial class TradingController : SingletonMonoBehaviour<TradingControlle
                         trades.Remove(trade);
                     }
                 }
+                else
+                    Debug.Log("Something in the way");
             }
+            else
+                Debug.Log("trade was null");
         }
     }
 }
