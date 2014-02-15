@@ -58,7 +58,10 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
         var player = this.players.FirstOrDefault(p => p.NetworkPlayer.Equals(networkPlayer));
         if (player == null)
         {
-            player = new Player();
+            player = new Player()
+            {
+                NetworkPlayer = networkPlayer,
+            };
             this.players.Add(player);
         }
         return player;
