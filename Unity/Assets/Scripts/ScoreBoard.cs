@@ -28,7 +28,7 @@ public class ScoreBoard : MonoBehaviour {
             menu.SetGUIScale();
             MenuGUIMatrix = GUI.matrix;
         }
-
+            
         else if (!showScores && gamestateController.CurrentGameState == GameState.Playing)
         {
             foreach (var p in gamestateController.PlayerController.Players)
@@ -41,6 +41,7 @@ public class ScoreBoard : MonoBehaviour {
     {
         if (showScores)
         {
+            var tempMatrix = GUI.matrix;
             GUI.matrix = MenuGUIMatrix;
 
             var tempSkin = GUI.skin;
@@ -63,6 +64,8 @@ public class ScoreBoard : MonoBehaviour {
             // test
             if (Network.isServer && GUI.Button(new Rect(Screen.width - 60, 10, 50, 20), "+"))
                 gamestateController.NetworkMessageController.AddToPlayerScoreOnServer(Network.player, 50);
+
+            GUI.matrix = tempMatrix;
         }
     }
 
