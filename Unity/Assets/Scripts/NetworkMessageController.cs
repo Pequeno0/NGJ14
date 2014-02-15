@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class NetworkMessageController : BaseMonoBehaviour
+public partial class NetworkMessageController : BaseMonoBehaviour
 {
     public NetworkView Reliable;
     public NetworkView Unreliable;
@@ -70,5 +70,27 @@ public class NetworkMessageController : BaseMonoBehaviour
         //    parent = new GameObject().transform;
 
 
+    }
+
+    public void PrePlay()
+    {
+        this.Reliable.RPC("OnPrePlay", RPCMode.All);
+    }
+
+    [RPC]
+    private void OnPrePlay(NetworkMessageInfo messageInfo)
+    {
+        this.GameStateController.PrePlay();
+    }
+
+    public void Play()
+    {
+        this.Reliable.RPC("OnPlay", RPCMode.All);
+    }
+
+    [RPC]
+    private void OnPlay(NetworkMessageInfo messageInfo)
+    {
+        this.GameStateController.Play();
     }
 }
