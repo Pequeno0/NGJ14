@@ -58,8 +58,13 @@ public class Menu : BaseMonoBehaviour
             }
         }
         GUILayout.EndScrollView();
+        if (GUILayout.Button("Refresh server list"))
+        {
+            this.RefreshServerList();
+        }
 
         GUILayout.BeginHorizontal();
+        GUILayout.Label("Game name");
         this.gameName = GUILayout.TextField(this.gameName);
         if (GUILayout.Button("Host"))
         {
