@@ -8,7 +8,6 @@ public class Menu : MonoBehaviour
     private Vector2 playerListScrollPosition;
     private HostData[] servers = new HostData[0];
     private string gameName = string.Empty;
-    private string playerName = string.Empty;
     private string errorMessage = string.Empty;
     private GameStateController gameStateController;
     private PlayerController playerController;
@@ -24,8 +23,11 @@ public class Menu : MonoBehaviour
 
     private void OnGUI()
     {
-        var bounds = new Rect(0, 0, 300, Screen.height);
-        GUI.Window(1, bounds, this.RenderWindow, this.gameStateController.CurrentGameState.ToString());
+        if (this.gameStateController.CurrentGameState != GameState.Playing)
+        {
+            var bounds = new Rect(0, 0, 300, Screen.height);
+            GUI.Window(1, bounds, this.RenderWindow, this.gameStateController.CurrentGameState.ToString());
+        }
     }
 
     private void RenderWindow(int windowId)
@@ -38,6 +40,9 @@ public class Menu : MonoBehaviour
             case GameState.LobbyMenu:
                 this.RenderLobbyGUI();
                 break;
+            case GameState.PrePlaying:
+                this.RenderPrePlaying();
+                break;
         }
     }
 
@@ -45,7 +50,7 @@ public class Menu : MonoBehaviour
     {
         GUILayout.BeginHorizontal();
         GUILayout.Label("Player name");
-        this.playerName = GUILayout.TextField(this.playerName);
+        PlayerPrefsVars.PlayerName = GUILayout.TextField(PlayerPrefsVars.PlayerName);
         GUILayout.EndHorizontal();
 
         this.serverListScrollPosition = GUILayout.BeginScrollView(this.serverListScrollPosition, true, true);
@@ -76,13 +81,25 @@ public class Menu : MonoBehaviour
         this.playerListScrollPosition = GUILayout.BeginScrollView(this.playerListScrollPosition, true, true);
         foreach (var player in players)
         {
-            GUILayout.Label(player.NetworkPlayer.guid);
+            GUILayout.Label(player.Name);
         }
         GUILayout.EndScrollView();
+        if (Network.isServer)
+        {
+            if (GUILayout.Button("Play"))
+            {
+                this.gameStateController.PrePlay();
+            }
+        }
         if (GUILayout.Button("Cancel"))
         {
             Network.Disconnect();
         }
+    }
+
+    private void RenderPrePlaying()
+    {
+        GUILayout.Label("Loading..");
     }
 
     private void OnFailedToConnectToMasterServer(NetworkConnectionError info)
@@ -93,7 +110,7 @@ public class Menu : MonoBehaviour
     private void OnServerInitialized()
     {
         MasterServer.RegisterHost(Menu.gameTypeName, this.gameName);
-        this.networkMessageController.SetPlayerInfo(this.playerName);
+        this.networkMessageController.SetPlayerInfo(PlayerPrefsVars.PlayerName);
     }
 
     private void OnDestroy()
@@ -118,7 +135,7 @@ public class Menu : MonoBehaviour
 
     private void OnConnectedToServer()
     {
-        
+        this.networkMessageController.SetPlayerInfo(PlayerPrefsVars.PlayerName);
         Debug.Log("OnConnectedToServer");
     }
 

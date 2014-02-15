@@ -15,10 +15,17 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
         }
     }
 
+    public int PlayerCount
+    {
+        get
+        {
+            return this.players.Count;
+        }
+    }
+
     private void OnPlayerConnected(NetworkPlayer networkPlayer)
     {
-        var player = new Player();
-        this.players.Add(player);
+        this.AddPlayer(networkPlayer);
     }
 
     private void OnPlayerDisconnected(NetworkPlayer networkPlayer)
@@ -39,10 +46,20 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
         }
     }
 
-    [RPC]
+    private Player AddPlayer(NetworkPlayer networkPlayer)
+    {
+        var player = new Player();
+        this.players.Add(player);
+        return player;
+    }
+
     public void SetPlayerName(NetworkPlayer networkPlayer, string playerName)
     {
         var player = this.players.FirstOrDefault(p => p.NetworkPlayer == networkPlayer);
+        if (player == null)
+        {
+            player = this.AddPlayer(networkPlayer);
+        }
         player.Name = playerName;
     }
 }

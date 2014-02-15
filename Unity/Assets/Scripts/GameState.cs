@@ -5,5 +5,6 @@ public enum GameState
 {
     NetworkMenu,
     LobbyMenu,
+    PrePlaying,
     Playing,
 }

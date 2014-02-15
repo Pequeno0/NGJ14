@@ -14,4 +14,10 @@ public class Player
         get;
         set;
     }
+
+    public int PedId
+    {
+        get;
+        set;
+    }
 }

@@ -9,8 +9,9 @@ public class GameStateController : SingletonMonoBehaviour<GameStateController>
         private set;
     }
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         this.CurrentGameState = GameState.NetworkMenu;
     }
 
@@ -27,5 +28,15 @@ public class GameStateController : SingletonMonoBehaviour<GameStateController>
     private void OnDisconnectedFromServer(NetworkDisconnection disconnection)
     {
         this.CurrentGameState = GameState.NetworkMenu;
+    }
+
+    public void PrePlay()
+    {
+        this.CurrentGameState = GameState.PrePlaying;
+    }
+
+    public void Play()
+    {
+        this.CurrentGameState = GameState.Playing;
     }
 }
