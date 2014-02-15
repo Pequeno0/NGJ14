@@ -10,15 +10,19 @@ public partial class TradingController : SingletonMonoBehaviour<TradingControlle
 
     private void Update()
     {
+        // check if any trade is done
         foreach(var trade in this.trades)
         {
             if(Time.time - trade.StartTime > trade.Duration)
             {
                 this.NetworkMessageController.StopTradingGraphics(trade.InitiaterPlayer.NetworkPlayer);
                 this.NetworkMessageController.StopTradingGraphics(trade.OtherPlayer.NetworkPlayer);
+                this.NetworkMessageController.AddToPlayerScoreOnServer(trade.InitiaterPlayer.NetworkPlayer, 1);
+                this.NetworkMessageController.AddToPlayerScoreOnServer(trade.OtherPlayer.NetworkPlayer, 1);
             }
         }
 
+        // check if a trade can be started
         foreach (var outer in this.readyToTradeStates)
         {
             if (!outer.Value)
@@ -62,51 +66,27 @@ public partial class TradingController : SingletonMonoBehaviour<TradingControlle
 
     private void StartTrade(Player outerPlayer, Player innerPlayer, Ped outerPed, Ped innerPed, Transform outerTransform, Transform innerTransform)
     {
-    }
-
-    public void Trade(GameObject initiater, GameObject other)
-    {
-        if (initiater == other)
-        {
-            return;
-        }
-
-        if (!initiater.name.StartsWith("Ped") && !other.name.StartsWith("Ped"))
-        {
-            return;
-        }
-
-        if (this.trades.Any(t => (t.Initiater == initiater && t.Other == other) || (t.Other == initiater && t.Initiater == other)))
-        {
-            return;
-        }
-
-        var initiaterPed = this.PedController.Peds.First(p => p.Transform == initiater.transform || p.Transform == initiater.transform.parent);
-        var otherPed = this.PedController.Peds.First(p => p.Transform == other.transform || p.Transform == other.transform.parent);
-
-        var initiaterPlayer = this.PlayerController.Players.First(p => p.PedId == initiaterPed.Id);
-        var otherPlayer = this.PlayerController.Players.First(p => p.PedId == otherPed.Id);
-
         var trade = new TradePair()
         {
-            Initiater = initiater,
-            Other = other,
-            InitiaterPed = initiaterPed,
-            OtherPed = otherPed,
-            InitiaterPlayer = initiaterPlayer,
-            OtherPlayer = otherPlayer,
+            Initiater = outerTransform.gameObject,
+            Other = innerTransform.gameObject,
+            InitiaterPed = outerPed,
+            OtherPed = innerPed,
+            InitiaterPlayer = outerPlayer,
+            OtherPlayer = innerPlayer,
             StartTime = Time.time,
             Duration = 5.0f,
         };
 
         this.trades.Add(trade);
 
-        this.NetworkMessageController.StartTradeGrahicsOnClients(trade.Duration, initiaterPlayer.NetworkPlayer);
-        this.NetworkMessageController.StartTradeGrahicsOnClients(trade.Duration, otherPlayer.NetworkPlayer);
+        this.NetworkMessageController.StartTradeGrahicsOnClients(trade.Duration, outerPlayer.NetworkPlayer);
+        this.NetworkMessageController.StartTradeGrahicsOnClients(trade.Duration, innerPlayer.NetworkPlayer);
     }
 
     public void SetReadyToTrade(NetworkPlayer networkPlayer, bool isReadyToTrade)
     {
+        Debug.Log(string.Concat("SetReadyToTrade[NetworkPlayer=", networkPlayer, ", IsReadyToTrade=", isReadyToTrade, "]"));
         if (this.readyToTradeStates.ContainsKey(networkPlayer))
         {
             this.readyToTradeStates[networkPlayer] = isReadyToTrade;
