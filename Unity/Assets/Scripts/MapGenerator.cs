@@ -23,5 +23,36 @@ public class MapGenerator
                 chunk.transform.rotation = Quaternion.Euler(0.0f, 0.0f, rnd * 90.0f);
             }
         }
+
+        var border = Resources.Load("InvisibleBorder", typeof(Transform)) as Transform;
+        if (border != null)
+        {
+            var offsetX = chunkWidth / 2 + 1;
+            var offsetY = chunkHeight / 2 + 1;
+
+            var tempX = horiontalChunkCount * chunkWidth;
+            var tempY = verticalChuckCount * chunkHeight;
+
+            var borderParent = new GameObject().transform;
+            borderParent.name = "Border";
+
+            var scale = new Vector3(tempX + 2, 1, 1);
+            border.localScale = scale;
+            var temp = Transform.Instantiate(border, new Vector3(offsetX, -offsetY, 0), border.rotation) as Transform;
+            temp.name = "Border bottom";
+            temp.parent = borderParent;
+            temp = Transform.Instantiate(border, new Vector3(offsetX, tempY + 1 - offsetY, 0), border.rotation) as Transform;
+            temp.parent = borderParent;
+            temp.name = "Border top";
+
+            scale = new Vector3(1, tempY + 2, 1);
+            border.localScale = scale;
+            temp = Transform.Instantiate(border, new Vector3(-offsetX, offsetY, 0), border.rotation) as Transform;
+            temp.name = "Border left";
+            temp.parent = borderParent;
+            temp = Transform.Instantiate(border, new Vector3(tempX + 1 - offsetX, offsetY, 0), border.rotation) as Transform;
+            temp.name = "Border right";
+            temp.parent = borderParent;
+        }
     }
 }
