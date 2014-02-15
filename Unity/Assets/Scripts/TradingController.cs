@@ -122,6 +122,9 @@ public partial class TradingController : SingletonMonoBehaviour<TradingControlle
 
         this.trades.Add(trade);
 
+        outerPed.IsTrading = true;
+        innerPed.IsTrading = true;
+
         // deactivate ready to trade to enure that when the trade stops
         // it is not automatically restarted
         this.readyToTradeStates[outerPlayer.NetworkPlayer] = false;
