@@ -199,7 +199,7 @@ public partial class NetworkMessageController : BaseMonoBehaviour
         }
         else
         {
-            this.Reliable.RPC("OnSetReadyToTradeFromClient", RPCMode.Server, isReadyToTrade);
+            this.Reliable.RPC("OnSetReadyToTradeFromClient", RPCMode.Server, isReadyToTrade, Network.player);
         }
     }
 
