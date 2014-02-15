@@ -41,7 +41,9 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
 
     private void OnServerInitialized()
     {
-        this.OnPlayerConnected(Network.player);
+        //this.NetworkMessageController.SetPlayerInfo(PlayerPrefsVars.PlayerName);
+        //this.OnPlayerConnected(Network.player);
+        this.SetPlayerName(Network.player, PlayerPrefsVars.PlayerName);
     }
 
     private void OnDisconnectedFromServer(NetworkDisconnection disconnection)
@@ -54,7 +56,9 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
 
     private Player AddPlayer(NetworkPlayer networkPlayer)
     {
+        Debug.Log("Added new Player: " + networkPlayer.ToString() + ". ip: " + networkPlayer.ipAddress);
         var player = this.players.FirstOrDefault(p => p.NetworkPlayer.Equals(networkPlayer));
+
         if (player == null)
         {
             player = new Player()
@@ -80,6 +84,7 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
 
     public void Update()
     {
+        
         if (this.GameStateController.CurrentGameState == GameState.Playing)
         {
             float middleX = Screen.width / 2;
