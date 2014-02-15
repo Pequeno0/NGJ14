@@ -21,11 +21,8 @@ public class PrePlayingController : SingletonMonoBehaviour<PrePlayingController>
                     var playerCount = this.PlayerController.PlayerCount;
                     var tileCount = Mathf.CeilToInt(playerCount * 0.25f);
                     MapGenerator.Singleton.Generate(tileCount, tileCount, 11, 11, "LevelChunk001", "LevelChunk002");
-                    //var enumerator = MapGenerator.Singleton.Generate(tileCount, tileCount, 11, 11, "LevelChunk001", "LevelChunk002");
-                    //while(enumerator.MoveNext())
-                    //{
-                    //    yield return null;
-                    //}
+                    
+                    
 
                     // set up pedestrians
                     var id = 0;
