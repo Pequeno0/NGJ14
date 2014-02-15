@@ -16,8 +16,9 @@ public class TradeProgressGraphics : MonoBehaviour {
 		if (isTrading)
 		{
             float percentage = (Time.time - startTime) / this.duration;
+            Debug.Log("Sprite Percentage : " + percentage);
 
-			int sprites = progressSprites.Length;
+            //int sprites = progressSprites.Length;
 
 			int spriteIndex = -1;
 
@@ -47,7 +48,7 @@ public class TradeProgressGraphics : MonoBehaviour {
 //			Debug.Log("SpriteIndex: " + spriteIndex);
 
 			//If we found a Sprite to display, show it here
-			if (spriteIndex == -1)
+			if (spriteIndex != -1)
 			{
 				sr.sprite = progressSprites[spriteIndex];
 			}
@@ -61,8 +62,8 @@ public class TradeProgressGraphics : MonoBehaviour {
 		}
 		else
 		{
-			sr.enabled = false;
-			sr.sprite = null;
+            //sr.enabled = false;
+            //sr.sprite = null;
 		}
 
 	}
@@ -72,6 +73,7 @@ public class TradeProgressGraphics : MonoBehaviour {
 		isTrading = true;
 		startTime = Time.time;
         this.duration = duration;
+        GetComponent<SpriteRenderer>().enabled = true;
 
 	}
 

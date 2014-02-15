@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Linq;
 using System.Collections;
-using System.Linq;
 
 public partial class NetworkMessageController : BaseMonoBehaviour
 {
@@ -173,7 +172,21 @@ public partial class NetworkMessageController : BaseMonoBehaviour
     {
         var player = this.PlayerController.Players.First(p => p.NetworkPlayer.Equals(networkPlayer));
         var ped = this.PedController.Peds.First(p => p.Id == player.PedId);
-        var graphics = ped.Transform.GetComponent<TradeProgressGraphics>();
+        var graphics = ped.Transform.GetComponentInChildren<TradeProgressGraphics>();
         graphics.StartTradingGraphics(duration);
+    }
+
+    public void StopTradingGraphics(NetworkPlayer networkPlayer)
+    {
+        this.Reliable.RPC("OnStopTradingGraphics", RPCMode.All, networkPlayer);
+    }
+
+    [RPC]
+    private void OnStopTradingGraphics(NetworkPlayer networkPlayer)
+    {
+        var player = this.PlayerController.Players.First(p => p.NetworkPlayer.Equals(networkPlayer));
+        var ped = this.PedController.Peds.First(p => p.Id == player.PedId);
+        var graphics = ped.Transform.GetComponentInChildren<TradeProgressGraphics>();
+        graphics.StopTradingGraphics();
     }
 }

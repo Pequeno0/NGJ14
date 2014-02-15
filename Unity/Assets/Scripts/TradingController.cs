@@ -3,9 +3,21 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 
-public class TradingController : SingletonMonoBehaviour<TradingController>
+public partial class TradingController : SingletonMonoBehaviour<TradingController>
 {
     private readonly List<TradePair> trades = new List<TradePair>();
+
+    private void Update()
+    {
+        foreach(var trade in this.trades)
+        {
+            if(Time.time - trade.StartTime > trade.Duration)
+            {
+                this.NetworkMessageController.StopTradingGraphics(trade.InitiaterPlayer.NetworkPlayer);
+                this.NetworkMessageController.StopTradingGraphics(trade.OtherPlayer.NetworkPlayer);
+            }
+        }
+    }
 
     public void Trade(GameObject initiater, GameObject other)
     {
