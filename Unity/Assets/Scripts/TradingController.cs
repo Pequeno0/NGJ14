@@ -25,6 +25,23 @@ public partial class TradingController : SingletonMonoBehaviour<TradingControlle
             }
         }
 
+        foreach (Ped ped in PedController.Peds)
+        {
+            if (!ped.IsTrading)
+            {
+                foreach (TradePair trade in trades)
+                {
+                    if ( Vector3.Distance(ped.Transform.position, trade.Initiater.transform.position) < 3f)
+                    {
+                        Ped otherPed = PedController.Peds.SingleOrDefault(d => d.Transform == trade.Initiater.transform);
+                        if (otherPed == null)
+                            Debug.Log("otherPedWasNull - It shouldn't be");
+                        CheckDistruptionAvailableDistance(ped, otherPed);
+                    }
+                }
+            }
+        }
+
         // check if a trade can be started
         var copy = this.readyToTradeStates.ToArray();
         foreach (var outer in copy)
@@ -83,6 +100,9 @@ public partial class TradingController : SingletonMonoBehaviour<TradingControlle
         // it is not automatically restarted
         this.readyToTradeStates[outerPlayer.NetworkPlayer] = false;
         this.readyToTradeStates[innerPlayer.NetworkPlayer] = false;
+
+        this.NetworkMessageController.SetReadyToTradeFromServer(false, outerPlayer.NetworkPlayer);
+        this.NetworkMessageController.SetReadyToTradeFromServer(false, innerPlayer.NetworkPlayer);
 
         this.PedController.UpdatePedFromClient(outerPlayer.NetworkPlayer, Vector3.zero);
         this.PedController.UpdatePedFromClient(innerPlayer.NetworkPlayer, Vector3.zero);
