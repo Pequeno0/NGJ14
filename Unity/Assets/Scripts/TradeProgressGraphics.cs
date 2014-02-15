@@ -16,7 +16,7 @@ public class TradeProgressGraphics : MonoBehaviour {
 		if (isTrading)
 		{
             float percentage = (Time.time - startTime) / this.duration;
-            Debug.Log("Sprite Percentage : " + percentage);
+//            Debug.Log("Sprite Percentage : " + percentage);
 
             //int sprites = progressSprites.Length;
 
