@@ -10,30 +10,49 @@ public class ScoreBoard : MonoBehaviour {
     public Rect ScoreBoardRect = new Rect( 10, 10, 150, 200);
     public int RowHeight = 30;
     public GUISkin ScoreGUISkin;
+    public GameStateController gamestateController;
+    public bool showScores = false;
 
 	// Use this for initialization
 	void Start () {
-        
-	}
+        gamestateController = GameObject.FindObjectOfType<Menu>().GameStateController;
+    }
 
+    void Update()
+    {
+        if( gamestateController == null)
+            gamestateController = GameObject.FindObjectOfType<Menu>().GameStateController;
+        
+        else if (!showScores && gamestateController.CurrentGameState == GameState.Playing)
+        {
+            foreach (var p in gamestateController.PlayerController.Players)
+                AllPlayerScores.Add(new PlayerScoreObject() { Player = p });
+            showScores = true;
+        }
+    }
+    
     void OnGUI()
     {
-        var tempSkin = GUI.skin;
-        if (ScoreGUISkin != null)
-            GUI.skin = ScoreGUISkin;
+        if (showScores)
+        {
 
-        ScoreBoardRect.height = AllPlayerScores.Count * RowHeight + RowHeight;
+            var tempSkin = GUI.skin;
+            if (ScoreGUISkin != null)
+                GUI.skin = ScoreGUISkin;
 
-        GUILayout.BeginArea(ScoreBoardRect);
-        GUILayout.Box("SCORES");
+            ScoreBoardRect.height = AllPlayerScores.Count * RowHeight + RowHeight;
 
-        foreach (var score in AllPlayerScores.OrderBy( m => m.Player.Score))
-            GUILayout.Box(score.ToString());
+            GUILayout.BeginArea(ScoreBoardRect);
+            GUILayout.Box("SCORES");
 
-        GUILayout.EndArea();
+            foreach (var score in AllPlayerScores.OrderBy(m => m.Player.Score))
+                GUILayout.Box(score.ToString());
 
-        if (ScoreGUISkin != null)
-            GUI.skin = tempSkin;
+            GUILayout.EndArea();
+
+            if (ScoreGUISkin != null)
+                GUI.skin = tempSkin;
+        }
     }
 
     public void AddPlayerScoreObject(Player player)
