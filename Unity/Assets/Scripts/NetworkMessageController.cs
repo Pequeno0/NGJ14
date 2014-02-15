@@ -215,6 +215,7 @@ public partial class NetworkMessageController : BaseMonoBehaviour
     [RPC]
     private void OnSetReadyToTradeFromServer(bool isReadyToTrade, NetworkPlayer networkPlayer)
     {
+        Debug.Log("OnSetReadyToTradeFromServer " + networkPlayer);
         this.Menu.IsReadyToTrade = isReadyToTrade;
     }
 }
