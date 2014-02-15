@@ -54,14 +54,17 @@ public partial class TradingController : SingletonMonoBehaviour<TradingControlle
         }
     }
     */
-    public void CheckDistruptionAvailableDistance(Ped thisPed, Ped hitPed)
+    public bool CheckDistruptionAvailableDistance(Ped thisPed, Ped hitPed)
     {
+        if (thisPed.Id == hitPed.Id)
+            return false;
+
         var hitPlayer = this.PlayerController.Players.First(p => p.PedId == hitPed.Id);
 
         var thisPlayer = this.PlayerController.Players.First(p => p.PedId == thisPed.Id);
 
         TradePair trade = trades.FirstOrDefault(d => d.InitiaterPlayer == hitPlayer || d.OtherPlayer == hitPlayer
-                                        && (d.InitiaterPlayer.PedId != thisPed.Id || d.OtherPlayer.PedId != thisPed.Id));
+                                        && (d.InitiaterPlayer.PedId != thisPed.Id && d.OtherPlayer.PedId != thisPed.Id));
 
 
         if (trade != null)
@@ -77,8 +80,10 @@ public partial class TradingController : SingletonMonoBehaviour<TradingControlle
                     NetworkMessageController.AddToPlayerScoreOnServer(thisPlayer.NetworkPlayer, 1);
                     NetworkMessageController.StopTradingFromServer(trade);
                     trades.Remove(trade);
+                    return true;
                 }
             }
         }
+        return false;
     }
 }
