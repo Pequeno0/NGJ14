@@ -64,8 +64,8 @@ public class PedController : SingletonMonoBehaviour<PedController>
         {
             foreach (Ped ped in peds)
             {
-                if (ped.Transform.position.z < -0.7f && ped.Transform.position.z > -0.6f)
-                    ped.Transform.position = new Vector3(ped.Transform.position.x, ped.Transform.position.y, -0.7f);
+                //if (ped.Transform.position.z < -0.7f && ped.Transform.position.z > -0.6f)
+                //    ped.Transform.position = new Vector3(ped.Transform.position.x, ped.Transform.position.y, -0.7f);
                 this.NetworkMessageController.UpdatePed(ped.Id, ped.Transform.position, ped.Transform.eulerAngles, ped.Transform.rigidbody.velocity.normalized, ped.IsTrading, ped.IsBackstabbing);
             }
         }
