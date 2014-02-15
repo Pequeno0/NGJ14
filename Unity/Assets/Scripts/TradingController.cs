@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 public partial class TradingController : SingletonMonoBehaviour<TradingController>
 {
+    private readonly Dictionary<NetworkPlayer, bool> readyToTradeStates = new Dictionary<NetworkPlayer, bool>();
     private readonly List<TradePair> trades = new List<TradePair>();
 
     private void Update()
@@ -17,12 +18,54 @@ public partial class TradingController : SingletonMonoBehaviour<TradingControlle
                 this.NetworkMessageController.StopTradingGraphics(trade.OtherPlayer.NetworkPlayer);
             }
         }
+
+        foreach (var outer in this.readyToTradeStates)
+        {
+            if (!outer.Value)
+            {
+                continue;
+            }
+
+            foreach (var inner in this.readyToTradeStates)
+            {
+                if (!inner.Value)
+                {
+                    continue;
+                }
+                if (outer.Key == inner.Key)
+                {
+                    continue;
+                }
+
+                var outerPlayer = this.PlayerController.Players.First(p => p.NetworkPlayer == outer.Key);
+                var innerPlayer = this.PlayerController.Players.First(p => p.NetworkPlayer == inner.Key);
+
+                var outerPed = this.PedController.Peds.First(p => p.Id == outerPlayer.PedId);
+                var innerPed = this.PedController.Peds.First(p => p.Id == innerPlayer.PedId);
+
+                var outerTransform = outerPed.Transform;
+                var innerTransform = innerPed.Transform;
+
+                var distance = Vector3.Distance(outerTransform.position, innerTransform.position);
+                if (distance < 1.2f)
+                {
+                    // deactivate ready to trade to enure that when the trade stops
+                    // it is not automatically restarted
+                    this.readyToTradeStates[outer.Key] = false;
+                    this.readyToTradeStates[inner.Key] = false;
+
+                    this.StartTrade(outerPlayer, innerPlayer, outerPed, innerPed, outerTransform, innerTransform);
+                }
+            }
+        }
+    }
+
+    private void StartTrade(Player outerPlayer, Player innerPlayer, Ped outerPed, Ped innerPed, Transform outerTransform, Transform innerTransform)
+    {
     }
 
     public void Trade(GameObject initiater, GameObject other)
     {
-        Debug.Log(string.Concat(initiater.name, " ", other.name));
-
         if (initiater == other)
         {
             return;
@@ -60,5 +103,17 @@ public partial class TradingController : SingletonMonoBehaviour<TradingControlle
 
         this.NetworkMessageController.StartTradeGrahicsOnClients(trade.Duration, initiaterPlayer.NetworkPlayer);
         this.NetworkMessageController.StartTradeGrahicsOnClients(trade.Duration, otherPlayer.NetworkPlayer);
+    }
+
+    public void SetReadyToTrade(NetworkPlayer networkPlayer, bool isReadyToTrade)
+    {
+        if (this.readyToTradeStates.ContainsKey(networkPlayer))
+        {
+            this.readyToTradeStates[networkPlayer] = isReadyToTrade;
+        }
+        else
+        {
+            this.readyToTradeStates.Add(networkPlayer, isReadyToTrade);
+        }
     }
 }

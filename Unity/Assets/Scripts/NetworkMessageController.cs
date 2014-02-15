@@ -189,4 +189,25 @@ public partial class NetworkMessageController : BaseMonoBehaviour
         var graphics = ped.Transform.GetComponentInChildren<TradeProgressGraphics>();
         graphics.StopTradingGraphics();
     }
+
+    public void SetReadyToTradeFromClient(bool isReadyToTrade)
+    {
+        if (Network.isServer)
+        {
+            this.OnSetReadyToTradeFromClient(isReadyToTrade, Network.player);
+        }
+        else
+        {
+            this.Reliable.RPC("OnSetReadyToTradeFromClient", RPCMode.Server, isReadyToTrade);
+        }
+    }
+
+    [RPC]
+    private void OnSetReadyToTradeFromClient(bool isReadyToTrade, NetworkPlayer networkPlayer)
+    {
+        if (Network.isServer)
+        {
+            this.TradingController.SetReadyToTrade(networkPlayer, isReadyToTrade);
+        }
+    }
 }
