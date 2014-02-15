@@ -25,6 +25,11 @@ public class PedController : SingletonMonoBehaviour<PedController>
     public void AddPed(int id, Vector3 position, Vector3 rotation)
     {
         var gameObject = (GameObject)GameObject.Instantiate(this.pedPrefab, position, Quaternion.Euler(rotation));
+        if (Network.isClient)
+        {
+            gameObject.rigidbody.detectCollisions = false;
+            gameObject.collider.enabled = false;
+        }
         var ped = new Ped()
         {
             Id = id,

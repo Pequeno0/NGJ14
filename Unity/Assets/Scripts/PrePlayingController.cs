@@ -26,8 +26,8 @@ public class PrePlayingController : SingletonMonoBehaviour<PrePlayingController>
                     var id = 0;
                     foreach (var player in this.PlayerController.Players)
                     {
-                        player.PedId = id;
-                        this.NetworkMessageController.AddPed(id, Vector3.zero, Vector3.zero);
+                        player.PedId = int.Parse(player.NetworkPlayer.ToString());
+                        this.NetworkMessageController.AddPed(player.PedId, Vector3.zero, Vector3.zero);
                         id++;
                         yield return null;
 

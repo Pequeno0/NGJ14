@@ -59,6 +59,14 @@ public partial class NetworkMessageController : BaseMonoBehaviour
         yield return null;
         var chunk = GameObject.Find(chunkName);
         chunk.name = levelChunkName;
+        if (Network.isClient)
+        {
+            Collider[] colliders = chunk.GetComponentsInChildren<Collider>();
+            foreach (Collider col in colliders)
+            {
+                col.enabled = false;
+            }
+        }
         chunk.transform.position = position;
         chunk.transform.rotation = rotation;
     }

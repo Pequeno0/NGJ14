@@ -8,8 +8,8 @@ public class CameraSmoothFollow : BaseMonoBehaviour
     {
         if (this.GameStateController.CurrentGameState == GameState.Playing)
         {
-            var player = this.PlayerController.Players.First(p => p.NetworkPlayer == Network.player);
-            var ped = this.PedController.Peds.First(p => p.Id == player.PedId);
+            //var player = this.PlayerController.Players.First(p => p.NetworkPlayer == Network.player);
+            var ped = this.PedController.Peds.First(p => p.Id == int.Parse(Network.player.ToString()));
             var current = Camera.main.transform.position;
             var target = new Vector3(
                 Mathf.SmoothStep(current.x, ped.Transform.position.x, 0.1f),

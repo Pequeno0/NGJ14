@@ -58,6 +58,7 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
     {
         Debug.Log("Added new Player: " + networkPlayer.ToString() + ". ip: " + networkPlayer.ipAddress);
         var player = this.players.FirstOrDefault(p => p.NetworkPlayer.Equals(networkPlayer));
+
         if (player == null)
         {
             player = new Player()
@@ -83,6 +84,7 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
 
     public void Update()
     {
+        
         if (this.GameStateController.CurrentGameState == GameState.Playing)
         {
             float middleX = Screen.width / 2;
