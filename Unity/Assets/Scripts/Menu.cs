@@ -93,6 +93,7 @@ public class Menu : BaseMonoBehaviour
 
 	private void RenderPlayingGUI()
 	{
+//		Debug.Log("Screen height: " + Screen.height);
         var tradeGroupBounds = new Rect(Screen.width - 200.0f, 100.0f, 200.0f, 200.0f);
         var readyToTrade = GUI.Toggle(tradeGroupBounds, this.IsReadyToTrade, "Ready to trade");
         if (readyToTrade && !this.IsReadyToTrade)
@@ -105,8 +106,6 @@ public class Menu : BaseMonoBehaviour
             this.IsReadyToTrade = false;
             this.NetworkMessageController.SetReadyToTradeFromClient(this.IsReadyToTrade);
         }
-
-		Debug.Log("Screen height: " + Screen.height);
 
 		int unitSize = Mathf.RoundToInt((float)Screen.height * 0.20f);
 

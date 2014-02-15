@@ -188,6 +188,7 @@ public partial class NetworkMessageController : BaseMonoBehaviour
         var ped = this.PedController.Peds.First(p => p.Id == player.PedId);
         var graphics = ped.Transform.GetComponentInChildren<TradeProgressGraphics>();
         graphics.StopTradingGraphics();
+        // TODO: Insert explosion of items?
     }
 
     public void SetReadyToTradeFromClient(bool isReadyToTrade)
