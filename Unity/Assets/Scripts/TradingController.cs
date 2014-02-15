@@ -45,7 +45,7 @@ public partial class TradingController : SingletonMonoBehaviour<TradingControlle
                         if (CheckDistruptionAvailableDistance(ped, otherPed))
                         {
                             tradesToRemove.Add(trade);
-                            continue;
+                            break;
                         }
                     }
                 }

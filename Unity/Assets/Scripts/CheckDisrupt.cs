@@ -79,7 +79,7 @@ public partial class TradingController : SingletonMonoBehaviour<TradingControlle
                     NetworkMessageController.AddToPlayerScoreOnServer(trade.InitiaterPlayer.NetworkPlayer, -1);
                     NetworkMessageController.AddToPlayerScoreOnServer(thisPlayer.NetworkPlayer, 1);
                     NetworkMessageController.StopTradingFromServer(trade);
-                    trades.Remove(trade);
+                    //trades.Remove(trade);
                     return true;
                 }
             }
