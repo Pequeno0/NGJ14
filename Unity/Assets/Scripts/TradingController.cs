@@ -25,6 +25,23 @@ public partial class TradingController : SingletonMonoBehaviour<TradingControlle
             }
         }
 
+        foreach (Ped ped in PedController.Peds)
+        {
+            if (!ped.IsTrading)
+            {
+                foreach (TradePair trade in trades)
+                {
+                    if ( Vector3.Distance(ped.Transform.position, trade.Initiater.transform.position) < 3f)
+                    {
+                        Ped otherPed = PedController.Peds.SingleOrDefault(d => d.Transform == trade.Initiater.transform);
+                        if (otherPed == null)
+                            Debug.Log("otherPedWasNull - It shouldn't be");
+                        CheckDistruptionAvailableDistance(ped, otherPed);
+                    }
+                }
+            }
+        }
+
         // check if a trade can be started
         var copy = this.readyToTradeStates.ToArray();
         foreach (var outer in copy)
