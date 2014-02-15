@@ -95,23 +95,55 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
             {
                 Touch[] touches = Input.touches;
 
-                foreach (Touch t in touches)
-                {
-                    if (t.position.x < middleX - (middleX / 2))
-                        direction += new Vector3(-1, 0);
-                    if (t.position.x > middleX + middleX / 2)
-                        direction += new Vector3(1, 0);
-                    if (t.position.y < middleY - (middleY / 2))
-                        direction += new Vector3(0, -1);
-                    if (t.position.y > middleY + middleY / 2)
-                        direction += new Vector3(0, 1);
-                }
+//                foreach (Touch t in touches)
+//                {
+//                    if (t.position.x < middleX - (middleX / 2))
+//                        direction += new Vector3(-1, 0);
+//                    if (t.position.x > middleX + middleX / 2)
+//                        direction += new Vector3(1, 0);
+//                    if (t.position.y < middleY - (middleY / 2))
+//                        direction += new Vector3(0, -1);
+//                    if (t.position.y > middleY + middleY / 2)
+//                        direction += new Vector3(0, 1);
+//                }
 
-               
-            }
-            else if (Application.platform == RuntimePlatform.WindowsEditor)
-            {
-                if (Input.GetKey(KeyCode.LeftArrow))
+//				Rect leftRect = Menu.Instance.leftArrowRect;
+//				leftRect.y = Screen.height - leftRect.y;
+
+				Rect upLeft = new Rect(Menu.Instance.leftArrowRect.xMin, Menu.Instance.upArrowRect.yMin, Menu.Instance.leftArrowRect.width, Menu.Instance.upArrowRect.height);
+				Rect upRight = new Rect(Menu.Instance.rightArrowRect.xMin, Menu.Instance.upArrowRect.yMin, Menu.Instance.leftArrowRect.width, Menu.Instance.upArrowRect.height);
+				Rect downLeft = new Rect(Menu.Instance.leftArrowRect.xMin, Menu.Instance.downArrowRect.yMin, Menu.Instance.leftArrowRect.width, Menu.Instance.upArrowRect.height);
+				Rect downRight = new Rect(Menu.Instance.rightArrowRect.xMin, Menu.Instance.downArrowRect.yMin, Menu.Instance.leftArrowRect.width, Menu.Instance.upArrowRect.height);
+
+				foreach (Touch t in touches)
+				{
+					if (Menu.Instance.leftArrowRect.Contains(new Vector2(t.position.x, Screen.height - t.position.y)))
+						direction += new Vector3(-1, 0);
+					else if (upLeft.Contains(new Vector2(t.position.x, Screen.height - t.position.y)))
+						direction += new Vector3(-1, 1);
+					else if (Menu.Instance.rightArrowRect.Contains(new Vector2(t.position.x, Screen.height - t.position.y)))
+						direction += new Vector3(1, 0);
+					else if (upRight.Contains(new Vector2(t.position.x, Screen.height - t.position.y)))
+						direction += new Vector3(1, 1);
+					else if (Menu.Instance.downArrowRect.Contains(new Vector2(t.position.x, Screen.height - t.position.y)))
+						direction += new Vector3(0, -1);
+					else if (downLeft.Contains(new Vector2(t.position.x, Screen.height - t.position.y)))
+						direction += new Vector3(-1, -1);
+					else if (Menu.Instance.upArrowRect.Contains(new Vector2(t.position.x, Screen.height - t.position.y)))
+						direction += new Vector3(0, 1);
+					else if (downRight.Contains(new Vector2(t.position.x, Screen.height - t.position.y)))
+						direction += new Vector3(1, -1);
+				}
+				
+				
+				
+				
+				
+				
+			}
+			else if (Application.platform == RuntimePlatform.WindowsEditor)
+			{
+				if (Input.GetKey(KeyCode.LeftArrow))
                 {
                     direction += new Vector3(-1, 0);
                 }
