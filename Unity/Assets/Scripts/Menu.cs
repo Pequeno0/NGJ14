@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Menu : MonoBehaviour
+public class Menu : BaseMonoBehaviour
 {
     private const string gameTypeName = "{00AC2942-5140-404A-B826-BDB25F8A7BE2}";
     private Vector2 serverListScrollPosition;
@@ -9,30 +9,25 @@ public class Menu : MonoBehaviour
     private HostData[] servers = new HostData[0];
     private string gameName = string.Empty;
     private string errorMessage = string.Empty;
-    private GameStateController gameStateController;
-    private PlayerController playerController;
-    private NetworkMessageController networkMessageController;
 
-    private void Start()
+    protected override void Start()
     {
-        this.gameStateController = GameStateController.Singleton;
-        this.playerController = PlayerController.Singleton;
-        this.networkMessageController = GameObject.FindObjectOfType<NetworkMessageController>();
+        base.Start();
         this.RefreshServerList();
     }
 
     private void OnGUI()
     {
-        if (this.gameStateController.CurrentGameState != GameState.Playing)
+        if (this.GameStateController.CurrentGameState != GameState.Playing)
         {
             var bounds = new Rect(0, 0, 300, Screen.height);
-            GUI.Window(1, bounds, this.RenderWindow, this.gameStateController.CurrentGameState.ToString());
+            GUI.Window(1, bounds, this.RenderWindow, this.GameStateController.CurrentGameState.ToString());
         }
     }
 
     private void RenderWindow(int windowId)
     {
-        switch (this.gameStateController.CurrentGameState)
+        switch (this.GameStateController.CurrentGameState)
         {
             case GameState.NetworkMenu:
                 this.RenderNetworkGUI();
@@ -77,7 +72,7 @@ public class Menu : MonoBehaviour
 
     private void RenderLobbyGUI()
     {
-        var players = this.playerController.Players;
+        var players = this.PlayerController.Players;
         this.playerListScrollPosition = GUILayout.BeginScrollView(this.playerListScrollPosition, true, true);
         foreach (var player in players)
         {
@@ -88,7 +83,7 @@ public class Menu : MonoBehaviour
         {
             if (GUILayout.Button("Play"))
             {
-                this.gameStateController.PrePlay();
+                this.GameStateController.PrePlay();
             }
         }
         if (GUILayout.Button("Cancel"))
@@ -110,7 +105,7 @@ public class Menu : MonoBehaviour
     private void OnServerInitialized()
     {
         MasterServer.RegisterHost(Menu.gameTypeName, this.gameName);
-        this.networkMessageController.SetPlayerInfo(PlayerPrefsVars.PlayerName);
+        this.NetworkMessageController.SetPlayerInfo(PlayerPrefsVars.PlayerName);
     }
 
     private void OnDestroy()
@@ -135,7 +130,7 @@ public class Menu : MonoBehaviour
 
     private void OnConnectedToServer()
     {
-        this.networkMessageController.SetPlayerInfo(PlayerPrefsVars.PlayerName);
+        this.NetworkMessageController.SetPlayerInfo(PlayerPrefsVars.PlayerName);
         Debug.Log("OnConnectedToServer");
     }
 
