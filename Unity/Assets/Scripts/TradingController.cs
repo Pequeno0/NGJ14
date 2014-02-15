@@ -61,6 +61,9 @@ public partial class TradingController : SingletonMonoBehaviour<TradingControlle
                     this.readyToTradeStates[outer.Key] = false;
                     this.readyToTradeStates[inner.Key] = false;
 
+                    this.PedController.UpdatePedFromClient(outerPlayer.NetworkPlayer, Vector3.zero);
+                    this.PedController.UpdatePedFromClient(innerPlayer.NetworkPlayer, Vector3.zero);
+
                     this.StartTrade(outerPlayer, innerPlayer, outerPed, innerPed, outerTransform, innerTransform);
                 }
             }
