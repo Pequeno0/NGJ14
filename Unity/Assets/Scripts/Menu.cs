@@ -21,7 +21,7 @@ public class Menu : BaseMonoBehaviour
     /// <summary>
     /// Scale the gui matrix, determined by the gui ratio
     /// </summary>
-    private void SetGUIScale()
+    public void SetGUIScale()
     {
         var scale = new Vector3(GuiRatio, GuiRatio, 1f);
         GUI.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, scale);

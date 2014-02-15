@@ -97,7 +97,7 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1982182034}
   m_GameObject: {fileID: 15741296}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0139a1f6807013d45b191e32719b4526, type: 3}
   m_Name: 
@@ -110,6 +110,25 @@ MonoBehaviour:
     height: 200
   RowHeight: 30
   ScoreGUISkin: {fileID: 11400000, guid: 4fa6038200bb96e4488685c8d75b1a95, type: 2}
+  gamestateController: {fileID: 0}
+  MenuGUIMatrix:
+    e00: 0
+    e01: 0
+    e02: 0
+    e03: 0
+    e10: 0
+    e11: 0
+    e12: 0
+    e13: 0
+    e20: 0
+    e21: 0
+    e22: 0
+    e23: 0
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 0
+  showScores: 0
 --- !u!4 &15741298
 Transform:
   m_ObjectHideFlags: 0
@@ -604,7 +623,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 57102c1fb3d6d9441bfa093852425ce5, type: 2}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 57102c1fb3d6d9441bfa093852425ce5, type: 2}
