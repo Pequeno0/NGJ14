@@ -76,15 +76,14 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
         player.Name = playerName;
     }
 
-    public float speed = 1f;
-    float middleX = Screen.width / 2;
-    float middleY = Screen.height / 2;
     Vector3 lastDirection = Vector3.zero;
 
     public void Update()
     {
         if (this.GameStateController.CurrentGameState == GameState.Playing)
         {
+            float middleX = Screen.width / 2;
+            float middleY = Screen.height / 2;
             Vector3 direction = Vector3.zero;
             if (Application.platform == RuntimePlatform.Android)
             {
