@@ -53,6 +53,8 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
         {
             this.OnPlayerDisconnected(Network.player);
         }
+
+        Application.LoadLevel(0);
     }
 
     private Player AddPlayer(NetworkPlayer networkPlayer)

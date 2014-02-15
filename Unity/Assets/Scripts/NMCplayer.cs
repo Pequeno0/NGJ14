@@ -8,9 +8,15 @@ partial class NetworkMessageController : BaseMonoBehaviour
     {
         if (Network.isServer)
         {
-            
             this.PedController.UpdatePedFromClient(info.sender, direction);
         }
+    }
+    
+    public void StopTradingFromServer(TradePair trade)
+    {
+        
+        StopTradingGraphics(trade.InitiaterPlayer.NetworkPlayer);
+        StopTradingGraphics(trade.OtherPlayer.NetworkPlayer);
     }
 }
 
