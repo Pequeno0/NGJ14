@@ -29,6 +29,12 @@ public class Menu : BaseMonoBehaviour
 
 	public static Menu Instance;
 
+    public bool IsReadyToTrade
+    {
+        get;
+        set;
+    }
+
 	void Awake()
 	{
 		Instance = this;
@@ -88,6 +94,18 @@ public class Menu : BaseMonoBehaviour
 	private void RenderPlayingGUI()
 	{
 //		Debug.Log("Screen height: " + Screen.height);
+        var tradeGroupBounds = new Rect(Screen.width - 200.0f, 100.0f, 200.0f, 200.0f);
+        var readyToTrade = GUI.Toggle(tradeGroupBounds, this.IsReadyToTrade, "Ready to trade");
+        if (readyToTrade && !this.IsReadyToTrade)
+        {
+            this.IsReadyToTrade = true;
+            this.NetworkMessageController.SetReadyToTradeFromClient(this.IsReadyToTrade);
+        }
+        else if(!readyToTrade && this.IsReadyToTrade)
+        {
+            this.IsReadyToTrade = false;
+            this.NetworkMessageController.SetReadyToTradeFromClient(this.IsReadyToTrade);
+        }
 
 		int unitSize = Mathf.RoundToInt((float)Screen.height * 0.20f);
 
