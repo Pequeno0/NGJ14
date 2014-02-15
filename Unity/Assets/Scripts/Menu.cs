@@ -12,15 +12,19 @@ public class Menu : BaseMonoBehaviour
     private float GuiRatio = 1f;
 
 	public Texture upArrow;
+	[HideInInspector]
 	public Rect upArrowRect;
 
 	public Texture downArrow;
+	[HideInInspector]
 	public Rect downArrowRect;
 
 	public Texture leftArrow;
+	[HideInInspector]
 	public Rect leftArrowRect;
 
 	public Texture rightArrow;
+	[HideInInspector]
 	public Rect rightArrowRect;
 
 	public static Menu Instance;
@@ -85,7 +89,7 @@ public class Menu : BaseMonoBehaviour
 	{
 		Debug.Log("Screen height: " + Screen.height);
 
-		int unitSize = Mathf.RoundToInt((float)Screen.height * 0.15f);
+		int unitSize = Mathf.RoundToInt((float)Screen.height * 0.20f);
 
 		upArrowRect = new Rect(unitSize, Screen.height - 3 * unitSize, unitSize, unitSize);
 		downArrowRect = new Rect(unitSize, Screen.height - unitSize, unitSize, unitSize);

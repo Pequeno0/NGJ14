@@ -12,8 +12,8 @@ public class CameraSmoothFollow : BaseMonoBehaviour
             var ped = this.PedController.Peds.First(p => p.Id == int.Parse(Network.player.ToString()));
             var current = Camera.main.transform.position;
             var target = new Vector3(
-                Mathf.SmoothStep(current.x, ped.Transform.position.x, 0.1f),
-                Mathf.SmoothStep(current.y, ped.Transform.position.y, 0.1f),
+                Mathf.SmoothStep(current.x, ped.Transform.position.x, 0.15f),
+                Mathf.SmoothStep(current.y, ped.Transform.position.y, 0.15f),
                 current.z
                 );
             Camera.main.transform.position = target;
