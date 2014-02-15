@@ -41,9 +41,10 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
 
     private void OnServerInitialized()
     {
-        //this.NetworkMessageController.SetPlayerInfo(PlayerPrefsVars.PlayerName);
-        //this.OnPlayerConnected(Network.player);
-        this.SetPlayerName(Network.player, PlayerPrefsVars.PlayerName);
+        this.OnPlayerConnected(Network.player);
+        this.NetworkMessageController.SetPlayerInfo(PlayerPrefsVars.PlayerName, Network.player);
+        //this.NetworkMessageController.Reliable.RPC("OnSetPlayerInfo", RPCMode.OthersBuffered, name);
+        //this.SetPlayerName(Network.player, PlayerPrefsVars.PlayerName);
     }
 
     private void OnDisconnectedFromServer(NetworkDisconnection disconnection)

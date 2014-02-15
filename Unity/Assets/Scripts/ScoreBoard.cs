@@ -11,6 +11,7 @@ public class ScoreBoard : MonoBehaviour {
     public int RowHeight = 30;
     public GUISkin ScoreGUISkin;
     public GameStateController gamestateController;
+    public Matrix4x4 MenuGUIMatrix;
     public bool showScores = false;
 
 	// Use this for initialization
@@ -20,9 +21,14 @@ public class ScoreBoard : MonoBehaviour {
 
     void Update()
     {
-        if( gamestateController == null)
-            gamestateController = GameObject.FindObjectOfType<Menu>().GameStateController;
-        
+        if (gamestateController == null)
+        {
+            var menu = GameObject.FindObjectOfType<Menu>();
+            gamestateController = menu.GameStateController;
+            menu.SetGUIScale();
+            MenuGUIMatrix = GUI.matrix;
+        }
+            
         else if (!showScores && gamestateController.CurrentGameState == GameState.Playing)
         {
             foreach (var p in gamestateController.PlayerController.Players)
@@ -35,6 +41,8 @@ public class ScoreBoard : MonoBehaviour {
     {
         if (showScores)
         {
+            var tempMatrix = GUI.matrix;
+            GUI.matrix = MenuGUIMatrix;
 
             var tempSkin = GUI.skin;
             if (ScoreGUISkin != null)
@@ -52,6 +60,12 @@ public class ScoreBoard : MonoBehaviour {
 
             if (ScoreGUISkin != null)
                 GUI.skin = tempSkin;
+
+            // test
+            //if (Network.isServer && GUI.Button(new Rect(Screen.width - 60, 10, 50, 20), "+"))
+            //    gamestateController.NetworkMessageController.AddToPlayerScoreOnServer(Network.player, 50);
+
+            GUI.matrix = tempMatrix;
         }
     }
 

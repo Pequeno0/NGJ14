@@ -1,0 +1,51 @@
+﻿using UnityEngine;
+using System.Linq;
+using System.Collections;
+using System.Collections.Generic;
+
+public class TradingController : SingletonMonoBehaviour<TradingController>
+{
+    private readonly List<TradePair> trades = new List<TradePair>();
+
+    public void Trade(GameObject initiater, GameObject other)
+    {
+        if (initiater == other)
+        {
+            return;
+        }
+
+        if (!initiater.name.StartsWith("Ped") || !other.name.StartsWith("Ped"))
+        {
+            return;
+        }
+
+        if (this.trades.Any(t => (t.Initiater == initiater && t.Other == other) || (t.Other == initiater && t.Initiater == other)))
+        {
+            return;
+        }
+
+        Debug.Log(string.Concat(initiater.name, " ", other.name));
+        var initiaterPed = this.PedController.Peds.First(p => p.Transform == initiater.transform);
+        var otherPed = this.PedController.Peds.First(p => p.Transform == other.transform);
+
+        var initiaterPlayer = this.PlayerController.Players.First(p => p.PedId == initiaterPed.Id);
+        var otherPlayer = this.PlayerController.Players.First(p => p.PedId == otherPed.Id);
+
+        var trade = new TradePair()
+        {
+            Initiater = initiater,
+            Other = other,
+            InitiaterPed = initiaterPed,
+            OtherPed = otherPed,
+            InitiaterPlayer = initiaterPlayer,
+            OtherPlayer = otherPlayer,
+            StartTime = Time.time,
+            Duration = 5.0f,
+        };
+
+        this.trades.Add(trade);
+
+        this.NetworkMessageController.StartTradeGrahicsOnClients(trade.Duration, initiaterPlayer.NetworkPlayer);
+        this.NetworkMessageController.StartTradeGrahicsOnClients(trade.Duration, otherPlayer.NetworkPlayer);
+    }
+}

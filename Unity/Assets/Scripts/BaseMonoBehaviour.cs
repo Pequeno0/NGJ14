@@ -33,6 +33,12 @@ public class BaseMonoBehaviour : MonoBehaviour
         private set;
     }
 
+    public TradingController TradingController
+    {
+        get;
+        private set;
+    }
+
     protected virtual void Start()
     {
         this.GameStateController = GameStateController.Singleton;
@@ -40,5 +46,6 @@ public class BaseMonoBehaviour : MonoBehaviour
         this.PlayerController = PlayerController.Singleton;
         this.NetworkMessageController = GameObject.FindObjectOfType<NetworkMessageController>();
         this.PrePlayingController = PrePlayingController.Singleton;
+        this.TradingController = TradingController.Singleton;
     }
 }

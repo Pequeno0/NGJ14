@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
+using System.Linq;
 using System.Collections;
+using System.Linq;
 
 public partial class NetworkMessageController : BaseMonoBehaviour
 {
@@ -7,17 +9,17 @@ public partial class NetworkMessageController : BaseMonoBehaviour
     public NetworkView Reliable;
     public NetworkView Unreliable;
 
-    public void SetPlayerInfo(string name)
-    {
-        this.Reliable.RPC("OnSetPlayerInfo", RPCMode.AllBuffered, name);
-    }
+    //public void SetPlayerInfo(string name)
+    //{
+    //    this.Reliable.RPC("OnSetPlayerInfo", RPCMode.AllBuffered, name);
+    //}
 
-    [RPC]
-    private void OnSetPlayerInfo(string name, NetworkMessageInfo messageInfo)
-    {
-        var networkPlayer = messageInfo.GetActualSender();
-        this.PlayerController.SetPlayerName(networkPlayer, name);
-    }
+    //[RPC]
+    //private void OnSetPlayerInfo(string name, NetworkMessageInfo messageInfo)
+    //{
+    //    var networkPlayer = messageInfo.GetActualSender();
+    //    this.PlayerController.SetPlayerName(networkPlayer, name);
+    //}
 
     public void AddPed(int id, Vector3 position, Vector3 rotation)
     {
@@ -59,6 +61,8 @@ public partial class NetworkMessageController : BaseMonoBehaviour
         yield return null;
         var chunk = GameObject.Find(chunkName);
         chunk.name = levelChunkName;
+        Transform[] objects = chunk.GetComponentsInChildren<Transform>();
+
         if (Network.isClient)
         {
             Collider[] colliders = chunk.GetComponentsInChildren<Collider>();
@@ -67,8 +71,32 @@ public partial class NetworkMessageController : BaseMonoBehaviour
                 col.enabled = false;
             }
         }
+
+        var grounds = objects.Where(d => d.name == "Ground");
+        GameObject groundsObject = GameObject.Find("Grounds");
+        if (groundsObject == null)
+            groundsObject = new GameObject();
+        groundsObject.transform.position = Vector3.zero;
+        groundsObject.name = "Grounds";
+        foreach (Transform g in grounds)
+        {
+            g.position = position;
+            g.parent = groundsObject.transform;
+        }
+
         chunk.transform.position = position;
         chunk.transform.rotation = rotation;
+        foreach (Transform t in objects)
+        {
+            if (t.gameObject.name.Contains("Level chunk") || t.gameObject.name == "Ground")
+                continue;
+            //if ()
+            //{
+            //    t.transform.localRotation = Quaternion.Inverse(rotation);
+            //}
+            t.transform.rotation = Quaternion.identity;
+        }
+
     }
 
     [RPC]
@@ -133,5 +161,19 @@ public partial class NetworkMessageController : BaseMonoBehaviour
     private void OnPlay(NetworkMessageInfo messageInfo)
     {
         this.GameStateController.Play();
+    }
+
+    public void StartTradeGrahicsOnClients(float duration, NetworkPlayer networkPlayer)
+    {
+        this.Reliable.RPC("OnStartTradeGrahicsOnClients", RPCMode.All, duration, networkPlayer);
+    }
+
+    [RPC]
+    public void OnStartTradeGrahicsOnClients(float duration, NetworkPlayer networkPlayer)
+    {
+        var player = this.PlayerController.Players.First(p => p.NetworkPlayer.Equals(networkPlayer));
+        var ped = this.PedController.Peds.First(p => p.Id == player.PedId);
+        var graphics = ped.Transform.GetComponent<TradeProgressGraphics>();
+        graphics.StartTradingGraphics(duration);
     }
 }
