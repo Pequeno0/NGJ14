@@ -27,9 +27,9 @@ public class MapGenerator
         var border = Resources.Load("InvisibleBorder", typeof(Transform)) as Transform;
         if (border != null)
         {
-            var offsetX = chunkWidth / 2 + 1;
-            var offsetY = chunkHeight / 2 + 1;
-
+            var offsetX = (horiontalChunkCount * chunkWidth) / 2  + 1;
+            var offsetY = (verticalChuckCount * chunkHeight) / 2  + 1;
+            Debug.Log(offsetX + " " + offsetY);
             var tempX = horiontalChunkCount * chunkWidth;
             var tempY = verticalChuckCount * chunkHeight;
 
@@ -38,20 +38,22 @@ public class MapGenerator
 
             var scale = new Vector3(tempX + 2, 1, 1);
             border.localScale = scale;
-            var temp = Transform.Instantiate(border, new Vector3(offsetX, -offsetY, 0), border.rotation) as Transform;
-            temp.name = "Border bottom";
-            temp.parent = borderParent;
-            temp = Transform.Instantiate(border, new Vector3(offsetX, tempY + 1 - offsetY, 0), border.rotation) as Transform;
-            temp.parent = borderParent;
+
+            var temp = Transform.Instantiate(border, new Vector3(0, offsetY, -.5f), border.rotation) as Transform;
             temp.name = "Border top";
+            temp.parent = borderParent;
+            temp = Transform.Instantiate(border, new Vector3(0, -offsetY, -.5f), border.rotation) as Transform;
+            temp.parent = borderParent;
+            temp.name = "Border bottom";
 
             scale = new Vector3(1, tempY + 2, 1);
             border.localScale = scale;
-            temp = Transform.Instantiate(border, new Vector3(-offsetX, offsetY, 0), border.rotation) as Transform;
-            temp.name = "Border left";
-            temp.parent = borderParent;
-            temp = Transform.Instantiate(border, new Vector3(tempX + 1 - offsetX, offsetY, 0), border.rotation) as Transform;
+            
+            temp = Transform.Instantiate(border, new Vector3(offsetX, 0, -.5f), border.rotation) as Transform;
             temp.name = "Border right";
+            temp.parent = borderParent;
+            temp = Transform.Instantiate(border, new Vector3(-offsetX, 0, -.5f), border.rotation) as Transform;
+            temp.name = "Border left";
             temp.parent = borderParent;
         }
     }
