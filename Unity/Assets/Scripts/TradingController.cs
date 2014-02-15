@@ -94,6 +94,11 @@ public partial class TradingController : SingletonMonoBehaviour<TradingControlle
                 var outerPed = this.PedController.Peds.First(p => p.Id == outerPlayer.PedId);
                 var innerPed = this.PedController.Peds.First(p => p.Id == innerPlayer.PedId);
 
+                if (outerPed.IsTrading || innerPed.IsTrading)
+                {
+                    continue;
+                }
+
                 var outerTransform = outerPed.Transform;
                 var innerTransform = innerPed.Transform;
 
