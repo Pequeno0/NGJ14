@@ -18,6 +18,9 @@ public class MapGenerator
                 var chunk = GameObject.Find(chunkName);
                 chunk.name = string.Concat("Level chunk (", x, ", ", y, " [", chunk.name, "])");
                 chunk.transform.position = new Vector3(x * chunkWidth, y * chunkHeight, 0.0f);
+
+                rnd = Random.Range(0, 3);
+                chunk.transform.rotation = Quaternion.Euler(0.0f, 0.0f, rnd * 90.0f);
             }
         }
     }
