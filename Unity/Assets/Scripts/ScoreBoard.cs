@@ -53,7 +53,7 @@ public class ScoreBoard : MonoBehaviour {
             GUILayout.BeginArea(ScoreBoardRect);
             GUILayout.Box("SCORES");
 
-            foreach (var score in AllPlayerScores.OrderBy(m => m.Player.Score))
+            foreach (var score in AllPlayerScores.OrderByDescending(m => m.Player.Score))
                 GUILayout.Box(score.ToString());
 
             GUILayout.EndArea();

@@ -73,7 +73,7 @@ public class PedController : SingletonMonoBehaviour<PedController>
     }
 
     private bool sentDirectionZero = false;
-    public void Update()
+    public void FixedUpdate()
     {
         if (Network.isServer)
         {
