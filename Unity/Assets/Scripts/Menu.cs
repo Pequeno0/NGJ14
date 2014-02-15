@@ -15,7 +15,7 @@ public class Menu : BaseMonoBehaviour
     {
         base.Start();
         this.RefreshServerList();
-        GuiRatio = Screen.width / 800;
+        GuiRatio = Screen.width / 800f;
     }
 
     /// <summary>
