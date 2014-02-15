@@ -11,14 +11,17 @@ public partial class TradingController : SingletonMonoBehaviour<TradingControlle
     private void Update()
     {
         // check if any trade is done
-        foreach(var trade in this.trades)
+        for(var index = 0; index < this.trades.Count; index++)
         {
+            var trade = this.trades[index];
             if(Time.time - trade.StartTime > trade.Duration)
             {
                 this.NetworkMessageController.StopTradingGraphics(trade.InitiaterPlayer.NetworkPlayer);
                 this.NetworkMessageController.StopTradingGraphics(trade.OtherPlayer.NetworkPlayer);
                 this.NetworkMessageController.AddToPlayerScoreOnServer(trade.InitiaterPlayer.NetworkPlayer, 1);
                 this.NetworkMessageController.AddToPlayerScoreOnServer(trade.OtherPlayer.NetworkPlayer, 1);
+                this.trades.RemoveAt(index);
+                index--;
             }
         }
 
@@ -95,5 +98,10 @@ public partial class TradingController : SingletonMonoBehaviour<TradingControlle
         {
             this.readyToTradeStates.Add(networkPlayer, isReadyToTrade);
         }
+    }
+
+    public bool IsTrading(NetworkPlayer networkPlayer)
+    {
+        return this.trades.Any(t => t.OtherPlayer.NetworkPlayer.Equals(networkPlayer) || t.InitiaterPlayer.NetworkPlayer.Equals(networkPlayer));
     }
 }

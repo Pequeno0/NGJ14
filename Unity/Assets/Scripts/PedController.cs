@@ -55,6 +55,11 @@ public class PedController : SingletonMonoBehaviour<PedController>
 
     public void UpdatePedFromClient(NetworkPlayer np, Vector3 direction)
     {
+        if(this.TradingController.IsTrading(np))
+        {
+            return;
+        }
+
         int id = this.PlayerController.Players.First(d => d.NetworkPlayer == np).PedId;
         var ped = this.peds.First(p => p.Id == id);
         ped.Direction = direction;
