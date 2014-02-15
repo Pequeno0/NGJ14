@@ -52,4 +52,42 @@ public partial class TradingController : SingletonMonoBehaviour<TradingControlle
                 Debug.Log("trade was null");
         }
     }
+
+    public void CheckDistruptionAvailableDistance(Ped thisPed, Ped hitPed)
+    {
+        Debug.Log("Server1");
+
+        var hitPlayer = this.PlayerController.Players.First(p => p.PedId == hitPed.Id);
+
+        var thisPlayer = this.PlayerController.Players.First(p => p.PedId == thisPed.Id);
+
+        Debug.Log("Finding trade");
+        TradePair trade = trades.FirstOrDefault(d => d.InitiaterPlayer == hitPlayer || d.OtherPlayer == hitPlayer
+                                        && (d.InitiaterPlayer.PedId != thisPed.Id || d.OtherPlayer.PedId != thisPed.Id));
+
+
+        if (trade != null)
+        {
+            Debug.Log("Trying to disrupt");
+            Vector3 pos = thisPed.Transform.position;
+            RaycastHit hit;
+            if (Physics.Raycast(new Ray(pos, hitPed.Transform.position - pos), out hit, 5f))
+            {
+                Debug.Log("Raycast hit something");
+                if (hit.collider == trade.Initiater.collider || hit.collider == trade.Other.collider)
+                {
+                    Debug.Log("Disrupting!");
+                    NetworkMessageController.AddToPlayerScoreOnServer(trade.OtherPlayer.NetworkPlayer, -1);
+                    NetworkMessageController.AddToPlayerScoreOnServer(trade.InitiaterPlayer.NetworkPlayer, -1);
+                    NetworkMessageController.AddToPlayerScoreOnServer(thisPlayer.NetworkPlayer, 1);
+                    NetworkMessageController.StopTradingFromServer(trade);
+                    trades.Remove(trade);
+                }
+            }
+            else
+                Debug.Log("Something in the way");
+        }
+        else
+            Debug.Log("trade was null");
+    }
 }
