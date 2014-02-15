@@ -34,7 +34,7 @@ public partial class TradingController : SingletonMonoBehaviour<TradingControlle
         {
             if (!ped.IsTrading)
             {
-                List<TradePair> tradesToRemove = null;
+                List<TradePair> tradesToRemove = new List<TradePair>();
                 foreach (TradePair trade in trades)
                 {
                     if (Vector3.Distance(ped.Transform.position, trade.Initiater.transform.position) < 1.2f)
