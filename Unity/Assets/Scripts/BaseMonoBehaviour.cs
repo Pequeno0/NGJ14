@@ -39,6 +39,12 @@ public class BaseMonoBehaviour : MonoBehaviour
         private set;
     }
 
+    public Menu Menu
+    {
+        get;
+        private set;
+    }
+
     protected virtual void Start()
     {
         this.GameStateController = GameStateController.Singleton;
@@ -47,5 +53,6 @@ public class BaseMonoBehaviour : MonoBehaviour
         this.NetworkMessageController = GameObject.FindObjectOfType<NetworkMessageController>();
         this.PrePlayingController = PrePlayingController.Singleton;
         this.TradingController = TradingController.Singleton;
+        this.Menu = GameObject.FindObjectOfType<Menu>();
     }
 }

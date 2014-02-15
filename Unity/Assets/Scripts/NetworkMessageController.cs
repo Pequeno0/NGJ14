@@ -199,4 +199,22 @@ public partial class NetworkMessageController : BaseMonoBehaviour
             this.TradingController.SetReadyToTrade(networkPlayer, isReadyToTrade);
         }
     }
+
+    public void SetReadyToTradeFromServer(bool isReadyToTrade, NetworkPlayer networkPlayer)
+    {
+        if (Network.isServer)
+        {
+            this.OnSetReadyToTradeFromServer(isReadyToTrade, networkPlayer);
+        }
+        else
+        {
+            this.Reliable.RPC("OnSetReadyToTradeFromServer", networkPlayer, isReadyToTrade, networkPlayer);
+        }
+    }
+
+    [RPC]
+    private void OnSetReadyToTradeFromServer(bool isReadyToTrade, NetworkPlayer networkPlayer)
+    {
+        this.Menu.IsReadyToTrade = isReadyToTrade;
+    }
 }
