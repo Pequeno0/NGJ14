@@ -7,12 +7,8 @@ public class TradeProgressGraphics : MonoBehaviour {
 	public bool isTrading;
 
 	public float startTime;
+    private float duration;
 	private static float TRADEDURATION = 4;
-
-	void Start()
-	{
-		StartTradingGraphics();
-	}
 
 	// Update is called once per frame
 	void Update () {
@@ -20,7 +16,7 @@ public class TradeProgressGraphics : MonoBehaviour {
 
 		if (isTrading)
 		{
-			float percentage = (Time.time - startTime) / TRADEDURATION;
+            float percentage = (Time.time - startTime) / this.duration;
 
 			int sprites = progressSprites.Length;
 
@@ -72,10 +68,11 @@ public class TradeProgressGraphics : MonoBehaviour {
 
 	}
 
-	public void StartTradingGraphics()
+	public void StartTradingGraphics(float duration)
 	{
 		isTrading = true;
 		startTime = Time.time;
+        this.duration = duration;
 
 	}
 

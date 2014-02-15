@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
 
 public partial class NetworkMessageController : BaseMonoBehaviour
 {
@@ -133,5 +134,19 @@ public partial class NetworkMessageController : BaseMonoBehaviour
     private void OnPlay(NetworkMessageInfo messageInfo)
     {
         this.GameStateController.Play();
+    }
+
+    public void StartTradeGrahicsOnClients(float duration, NetworkPlayer networkPlayer)
+    {
+        this.Reliable.RPC("OnStartTradeGrahicsOnClients", RPCMode.All, duration, networkPlayer);
+    }
+
+    [RPC]
+    public void OnStartTradeGrahicsOnClients(float duration, NetworkPlayer networkPlayer)
+    {
+        var player = this.PlayerController.Players.First(p => p.NetworkPlayer.Equals(networkPlayer));
+        var ped = this.PedController.Peds.First(p => p.Id == player.PedId);
+        var graphics = ped.Transform.GetComponent<TradeProgressGraphics>();
+        graphics.StartTradingGraphics(duration);
     }
 }

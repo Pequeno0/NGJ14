@@ -21,7 +21,31 @@ public class TradePair
         set;
     }
 
-    public float Length
+    public float Duration
+    {
+        get;
+        set;
+    }
+
+    public Ped InitiaterPed
+    {
+        get;
+        set;
+    }
+
+    public Ped OtherPed
+    {
+        get;
+        set;
+    }
+
+    public Player InitiaterPlayer
+    {
+        get;
+        set;
+    }
+
+    public Player OtherPlayer
     {
         get;
         set;

@@ -14,14 +14,27 @@ public class TradingController : SingletonMonoBehaviour<TradingController>
             return;
         }
 
+        var initiaterPed = this.PedController.Peds.First(p => p.Transform == initiater.transform);
+        var otherPed = this.PedController.Peds.First(p => p.Transform == other.transform);
+
+        var initiaterPlayer = this.PlayerController.Players.First(p => p.PedId == initiaterPed.Id);
+        var otherPlayer = this.PlayerController.Players.First(p => p.PedId == otherPed.Id);
+
         var trade = new TradePair()
         {
             Initiater = initiater,
             Other = other,
+            InitiaterPed = initiaterPed,
+            OtherPed = otherPed,
+            InitiaterPlayer = initiaterPlayer,
+            OtherPlayer = otherPlayer,
             StartTime = Time.time,
-            Length = 5.0f,
+            Duration = 5.0f,
         };
 
         this.trades.Add(trade);
+
+        this.NetworkMessageController.StartTradeGrahicsOnClients(trade.Duration, initiaterPlayer.NetworkPlayer);
+        this.NetworkMessageController.StartTradeGrahicsOnClients(trade.Duration, otherPlayer.NetworkPlayer);
     }
 }
