@@ -55,7 +55,7 @@ public class PedController : SingletonMonoBehaviour<PedController>
 
     public void UpdatePedFromClient(NetworkPlayer np, Vector3 direction)
     {
-        if(this.TradingController.IsTrading(np))
+        if(this.TradingController.IsTrading(np) && direction != Vector3.zero)
         {
             return;
         }

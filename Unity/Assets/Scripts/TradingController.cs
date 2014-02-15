@@ -56,14 +56,6 @@ public partial class TradingController : SingletonMonoBehaviour<TradingControlle
                 var distance = Vector3.Distance(outerTransform.position, innerTransform.position);
                 if (distance < 1.2f)
                 {
-                    // deactivate ready to trade to enure that when the trade stops
-                    // it is not automatically restarted
-                    this.readyToTradeStates[outer.Key] = false;
-                    this.readyToTradeStates[inner.Key] = false;
-
-                    this.PedController.UpdatePedFromClient(outerPlayer.NetworkPlayer, Vector3.zero);
-                    this.PedController.UpdatePedFromClient(innerPlayer.NetworkPlayer, Vector3.zero);
-
                     this.StartTrade(outerPlayer, innerPlayer, outerPed, innerPed, outerTransform, innerTransform);
                 }
             }
@@ -85,6 +77,14 @@ public partial class TradingController : SingletonMonoBehaviour<TradingControlle
         };
 
         this.trades.Add(trade);
+
+        // deactivate ready to trade to enure that when the trade stops
+        // it is not automatically restarted
+        this.readyToTradeStates[outerPlayer.NetworkPlayer] = false;
+        this.readyToTradeStates[innerPlayer.NetworkPlayer] = false;
+
+        this.PedController.UpdatePedFromClient(outerPlayer.NetworkPlayer, Vector3.zero);
+        this.PedController.UpdatePedFromClient(innerPlayer.NetworkPlayer, Vector3.zero);
 
         this.NetworkMessageController.StartTradeGrahicsOnClients(trade.Duration, outerPlayer.NetworkPlayer);
         this.NetworkMessageController.StartTradeGrahicsOnClients(trade.Duration, innerPlayer.NetworkPlayer);
