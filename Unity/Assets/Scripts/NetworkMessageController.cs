@@ -45,4 +45,30 @@ public class NetworkMessageController : BaseMonoBehaviour
     {
         this.PedController.UpdatePed(id, position, rotation);
     }
+
+    [RPC]
+    public void CreateMapChunk(string chunkName, string levelChunkName, Vector3 position, Quaternion rotation)
+    {
+        this.StartCoroutine(createMapChunkCoroutine(chunkName, levelChunkName, position, rotation));
+    }
+
+    private IEnumerator createMapChunkCoroutine(string chunkName, string levelChunkName, Vector3 position, Quaternion rotation)
+    {
+        Application.LoadLevelAdditive(chunkName);
+        yield return null;
+        var chunk = GameObject.Find(chunkName);
+        chunk.name = levelChunkName;
+        chunk.transform.position = position;
+        chunk.transform.rotation = rotation;
+    }
+
+    [RPC]
+    public void CreateMapBorder()
+    {
+        //var parentGo = GameObject.Find("Border");
+        //if (parent == null)
+        //    parent = new GameObject().transform;
+
+
+    }
 }
