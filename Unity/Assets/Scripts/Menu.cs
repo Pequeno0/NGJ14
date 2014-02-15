@@ -101,6 +101,7 @@ public class Menu : BaseMonoBehaviour
         {
             if (GUILayout.Button("Play"))
             {
+				Network.maxConnections = 0;
                 this.NetworkMessageController.PrePlay();
             }
         }
