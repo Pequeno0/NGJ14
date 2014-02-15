@@ -21,15 +21,17 @@ public partial class TradingController : SingletonMonoBehaviour<TradingControlle
 
             TradePair trade = trades.FirstOrDefault(d => d.InitiaterPlayer == hitPlayer || d.OtherPlayer == hitPlayer
                                             && (d.InitiaterPlayer.PedId != thisPed.Id || d.OtherPlayer.PedId != thisPed.Id));
-
+            Debug.Log("Finding trade");
             if (trade != null)
             {
-                Vector3 pos = this.collider.transform.position;
+                Debug.Log("Trying to disrupt");
+                Vector3 pos = thisCollider.transform.position;
                 RaycastHit hit;
                 if (Physics.Raycast(new Ray(pos, collider.transform.position - pos), out hit, 5f))
                 {
                     if (hit.collider == trade.Initiater.collider || hit.collider == trade.Other.collider)
                     {
+                        Debug.Log("Disrupting!");
                         NetworkMessageController.AddToPlayerScoreOnServer(trade.OtherPlayer.NetworkPlayer, -1);
                         NetworkMessageController.AddToPlayerScoreOnServer(trade.InitiaterPlayer.NetworkPlayer, -1);
                         NetworkMessageController.AddToPlayerScoreOnServer(thisPlayer.NetworkPlayer, 1);
