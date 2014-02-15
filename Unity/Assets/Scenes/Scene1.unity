@@ -110,6 +110,8 @@ MonoBehaviour:
     height: 200
   RowHeight: 30
   ScoreGUISkin: {fileID: 11400000, guid: 4fa6038200bb96e4488685c8d75b1a95, type: 2}
+  gamestateController: {fileID: 0}
+  showScores: 0
 --- !u!4 &15741298
 Transform:
   m_ObjectHideFlags: 0
@@ -464,6 +466,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31c9e96dcb64690449973450cba7fee7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  upArrow: {fileID: 2800000, guid: ec7930fbbb9c5a64ea772e69a69f4760, type: 3}
+  downArrow: {fileID: 2800000, guid: 13f31d9670e955446b97ed38a0d8d826, type: 3}
+  leftArrow: {fileID: 2800000, guid: dd99fb13a0c2da74198b76240f38aaac, type: 3}
+  rightArrow: {fileID: 2800000, guid: 52fda494626a65d4d9fa12efa51d09ba, type: 3}
 --- !u!4 &1356752177
 Transform:
   m_ObjectHideFlags: 0

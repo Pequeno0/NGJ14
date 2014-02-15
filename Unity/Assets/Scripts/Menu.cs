@@ -11,6 +11,25 @@ public class Menu : BaseMonoBehaviour
     private string errorMessage = string.Empty;
     private float GuiRatio = 1f;
 
+	public Texture upArrow;
+	public Rect upArrowRect;
+
+	public Texture downArrow;
+	public Rect downArrowRect;
+
+	public Texture leftArrow;
+	public Rect leftArrowRect;
+
+	public Texture rightArrow;
+	public Rect rightArrowRect;
+
+	public static Menu Instance;
+
+	void Awake()
+	{
+		Instance = this;
+	}
+
     protected override void Start()
     {
         base.Start();
@@ -29,13 +48,20 @@ public class Menu : BaseMonoBehaviour
 
     private void OnGUI()
     {
-        SetGUIScale();
+        
         
         if (this.GameStateController.CurrentGameState != GameState.Playing)
         {
+			SetGUIScale();
+			
             var bounds = new Rect(0, 0, 300 , Screen.height / GuiRatio);
             GUI.Window(1, bounds, this.RenderWindow, this.GameStateController.CurrentGameState.ToString());
         }
+		else
+		{
+			this.RenderPlayingGUI();
+		}
+
     }
 
     private void RenderWindow(int windowId)
@@ -51,8 +77,41 @@ public class Menu : BaseMonoBehaviour
             case GameState.PrePlaying:
                 this.RenderPrePlaying();
                 break;
+				
         }
     }
+
+	private void RenderPlayingGUI()
+	{
+		Debug.Log("Screen height: " + Screen.height);
+
+		int unitSize = Mathf.RoundToInt((float)Screen.height * 0.15f);
+
+		upArrowRect = new Rect(unitSize, Screen.height - 3 * unitSize, unitSize, unitSize);
+		downArrowRect = new Rect(unitSize, Screen.height - unitSize, unitSize, unitSize);
+		leftArrowRect = new Rect(0, Screen.height - 2 * unitSize, unitSize, unitSize);
+		rightArrowRect = new Rect(2 * unitSize, Screen.height - 2 * unitSize, unitSize, unitSize);
+
+
+		GUI.DrawTexture(upArrowRect, upArrow, ScaleMode.StretchToFill);
+		GUI.DrawTexture(downArrowRect, downArrow, ScaleMode.StretchToFill);
+		GUI.DrawTexture(leftArrowRect, leftArrow, ScaleMode.StretchToFill);
+		GUI.DrawTexture(rightArrowRect, rightArrow, ScaleMode.StretchToFill);
+
+
+//		Rect upLeft = new Rect(Menu.Instance.leftArrowRect.xMin, Menu.Instance.upArrowRect.yMin, Menu.Instance.leftArrowRect.width, Menu.Instance.upArrowRect.height);
+//		Rect upRight = new Rect(Menu.Instance.rightArrowRect.xMin, Menu.Instance.upArrowRect.yMin, Menu.Instance.leftArrowRect.width, Menu.Instance.upArrow.height);
+//		Rect downLeft = new Rect(Menu.Instance.leftArrowRect.xMin, Menu.Instance.downArrowRect.yMin, Menu.Instance.leftArrowRect.width, Menu.Instance.upArrow.height);
+//		Rect downRight = new Rect(Menu.Instance.rightArrowRect.xMin, Menu.Instance.downArrowRect.yMin, Menu.Instance.leftArrowRect.width, Menu.Instance.upArrow.height);
+//
+//
+//		GUI.DrawTexture(upLeft, rightArrow, ScaleMode.StretchToFill);
+//		GUI.DrawTexture(upRight, rightArrow, ScaleMode.StretchToFill);
+//		GUI.DrawTexture(downLeft, rightArrow, ScaleMode.StretchToFill);
+//		GUI.DrawTexture(downRight, rightArrow, ScaleMode.StretchToFill);
+
+
+	}
 
     private void RenderNetworkGUI()
     {
