@@ -25,11 +25,16 @@ public class PedController : SingletonMonoBehaviour<PedController>
         this.peds.Add(ped);
     }
 
-    public void UpdatePedFromServer(int id, Vector3 position, Vector3 rotation)
+    public void UpdatePedFromServer(int id, Vector3 position, Vector3 rotation, Vector3 direction, bool trading, bool backstabbing)
     {
         var ped = this.peds.First(p => p.Id == id);
         ped.Transform.position = position;
         ped.Transform.rotation = Quaternion.Euler(rotation);
+        CharacterAnimator pedCA = ped.Transform.GetChild(0).GetComponent<CharacterAnimator>();
+        pedCA.walkingX = direction.x;
+        pedCA.walkingY = direction.y;
+        pedCA.isDisrupting = backstabbing;
+        pedCA.isTrading = trading;
     }
 
     public void UpdatePedFromClient(NetworkPlayer np, Vector3 direction)
@@ -50,7 +55,7 @@ public class PedController : SingletonMonoBehaviour<PedController>
         {
             foreach (Ped ped in peds)
             {
-                this.NetworkMessageController.UpdatePed(ped.Id, ped.Transform.position, ped.Transform.eulerAngles);
+                this.NetworkMessageController.UpdatePed(ped.Id, ped.Transform.position, ped.Transform.eulerAngles, ped.Transform.rigidbody.velocity.normalized, ped.IsTrading, ped.IsBackstabbing);
             }
         }
     }
