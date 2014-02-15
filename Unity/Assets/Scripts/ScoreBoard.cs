@@ -62,8 +62,8 @@ public class ScoreBoard : MonoBehaviour {
                 GUI.skin = tempSkin;
 
             // test
-            if (Network.isServer && GUI.Button(new Rect(Screen.width - 60, 10, 50, 20), "+"))
-                gamestateController.NetworkMessageController.AddToPlayerScoreOnServer(Network.player, 50);
+            //if (Network.isServer && GUI.Button(new Rect(Screen.width - 60, 10, 50, 20), "+"))
+            //    gamestateController.NetworkMessageController.AddToPlayerScoreOnServer(Network.player, 50);
 
             GUI.matrix = tempMatrix;
         }
