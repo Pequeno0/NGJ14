@@ -26,7 +26,7 @@ public class MenuIngame : MonoBehaviour {
             gamestateController = menu.GameStateController;
             var scale = new Vector3(menu.GuiRatio, menu.GuiRatio, 1f);
             MenuGUIMatrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, scale);
-            windowRect = new Rect((Screen.width / 2) / menu.GuiRatio - WindowWidth / 2, (Screen.height / 2) / menu.GuiRatio - WindowHeight / 2, WindowWidth, WindowHeight);
+            windowRect = new Rect((Screen.width / 2f) / menu.GuiRatio - WindowWidth / 2f, (Screen.height / 2f) / menu.GuiRatio - WindowHeight / 2f, WindowWidth, WindowHeight);
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))

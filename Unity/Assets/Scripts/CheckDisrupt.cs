@@ -4,18 +4,21 @@ using System.Linq;
 
 public partial class TradingController : SingletonMonoBehaviour<TradingController>
 {
-    public void CheckDistruptionAvailable(Collider collider)
+    public void CheckDistruptionAvailable(Collider thisCollider, Collider collider)
     {
 
-        var hitPed = this.PedController.Peds.First(p => p.Transform == collider.transform || p.Transform == collider.transform.parent);
+        var hitPed = this.PedController.Peds.FirstOrDefault(p => p.Transform == collider.transform || p.Transform == collider.transform.parent);
+
+        if (hitPed == null)
+            return;
 
         var hitPlayer = this.PlayerController.Players.First(p => p.PedId == hitPed.Id);
 
-        var thisPed = this.PedController.Peds.First(p => p.Transform == this.collider.transform || p.Transform == this.collider.transform.parent);
+        var thisPed = this.PedController.Peds.First(p => p.Transform == thisCollider.transform || p.Transform == thisCollider.transform.parent);
 
         var thisPlayer = this.PlayerController.Players.First(p => p.PedId == thisPed.Id);
 
-        TradePair trade = trades.First(d => d.InitiaterPlayer == hitPlayer || d.OtherPlayer == hitPlayer
+        TradePair trade = trades.FirstOrDefault(d => d.InitiaterPlayer == hitPlayer || d.OtherPlayer == hitPlayer
                                         && (d.InitiaterPlayer.PedId != thisPed.Id || d.OtherPlayer.PedId != thisPed.Id ));
 
         if (trade != null)
