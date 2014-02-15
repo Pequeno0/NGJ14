@@ -24,6 +24,11 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
         }
     }
 
+    private void OnConnectedToServer()
+    {
+        this.AddPlayer(Network.player);
+    }
+
     private void OnPlayerConnected(NetworkPlayer networkPlayer)
     {
         this.AddPlayer(networkPlayer);
@@ -49,8 +54,12 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
 
     private Player AddPlayer(NetworkPlayer networkPlayer)
     {
-        var player = new Player();
-        this.players.Add(player);
+        var player = this.players.FirstOrDefault(p => p.NetworkPlayer.guid == networkPlayer.guid);
+        if (player == null)
+        {
+            player = new Player();
+            this.players.Add(player);
+        }
         return player;
     }
 
