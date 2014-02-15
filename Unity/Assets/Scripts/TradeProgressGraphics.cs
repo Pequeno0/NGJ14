@@ -10,7 +10,9 @@ public class TradeProgressGraphics : MonoBehaviour {
     private float duration;
 
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
+        Debug.Log("TradeProgressGraphics");
 		SpriteRenderer sr = GetComponent<SpriteRenderer>();
 
 		if (isTrading)
