@@ -10,6 +10,11 @@ public partial class TradingController : SingletonMonoBehaviour<TradingControlle
 
     private void Update()
     {
+        if (!Network.isServer)
+        {
+            return;
+        }
+
         // check if any trade is done
         for(var index = 0; index < this.trades.Count; index++)
         {

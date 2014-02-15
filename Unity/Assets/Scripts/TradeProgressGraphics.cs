@@ -12,7 +12,6 @@ public class TradeProgressGraphics : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        Debug.Log("TradeProgressGraphics");
 		SpriteRenderer sr = GetComponent<SpriteRenderer>();
 
 		if (isTrading)
@@ -59,8 +58,6 @@ public class TradeProgressGraphics : MonoBehaviour {
 			{
 				sr.enabled = true;
 			}
-
-
 		}
 		else
 		{
@@ -76,7 +73,7 @@ public class TradeProgressGraphics : MonoBehaviour {
 		startTime = Time.time;
         this.duration = duration;
         GetComponent<SpriteRenderer>().enabled = true;
-
+        Debug.Log("TradeProgressGraphics");
 	}
 
 	public void StopTradingGraphics()
