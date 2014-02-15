@@ -74,55 +74,6 @@ NavMeshSettings:
     widthInaccuracy: 16.666666
     heightInaccuracy: 10
   m_NavMesh: {fileID: 0}
---- !u!1 &15741296
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 100000, guid: 57102c1fb3d6d9441bfa093852425ce5, type: 2}
-  m_PrefabInternal: {fileID: 1982182034}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 15741298}
-  - 114: {fileID: 15741297}
-  m_Layer: 0
-  m_Name: ScoreBoard
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &15741297
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400000, guid: 57102c1fb3d6d9441bfa093852425ce5,
-    type: 2}
-  m_PrefabInternal: {fileID: 1982182034}
-  m_GameObject: {fileID: 15741296}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0139a1f6807013d45b191e32719b4526, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ScoreBoardRect:
-    serializedVersion: 2
-    x: 10
-    y: 10
-    width: 120
-    height: 200
-  RowHeight: 30
-  ScoreGUISkin: {fileID: 11400000, guid: 4fa6038200bb96e4488685c8d75b1a95, type: 2}
-  gamestateController: {fileID: 0}
-  showScores: 0
---- !u!4 &15741298
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 400000, guid: 57102c1fb3d6d9441bfa093852425ce5, type: 2}
-  m_PrefabInternal: {fileID: 1982182034}
-  m_GameObject: {fileID: 15741296}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
 --- !u!1 &289329593
 GameObject:
   m_ObjectHideFlags: 0
@@ -448,6 +399,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 1356752177}
   - 114: {fileID: 1356752176}
+  - 114: {fileID: 1356752179}
+  - 114: {fileID: 1356752178}
   m_Layer: 1
   m_Name: Menu
   m_TagString: Untagged
@@ -466,10 +419,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31c9e96dcb64690449973450cba7fee7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GuiRatio: 1
   upArrow: {fileID: 2800000, guid: ec7930fbbb9c5a64ea772e69a69f4760, type: 3}
+  upArrowRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
   downArrow: {fileID: 2800000, guid: 13f31d9670e955446b97ed38a0d8d826, type: 3}
+  downArrowRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
   leftArrow: {fileID: 2800000, guid: dd99fb13a0c2da74198b76240f38aaac, type: 3}
+  leftArrowRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
   rightArrow: {fileID: 2800000, guid: 52fda494626a65d4d9fa12efa51d09ba, type: 3}
+  rightArrowRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
 --- !u!4 &1356752177
 Transform:
   m_ObjectHideFlags: 0
@@ -481,6 +459,48 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!114 &1356752178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1356752175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f48855de563fc4143b4f4d27ced15286, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WindowWidth: 150
+  WindowHeight: 100
+  MenuSkin: {fileID: 11400000, guid: 4fa6038200bb96e4488685c8d75b1a95, type: 2}
+  MenuButtonRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  gamestateController: {fileID: 0}
+--- !u!114 &1356752179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1356752175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0139a1f6807013d45b191e32719b4526, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ScoreBoardRect:
+    serializedVersion: 2
+    x: 10
+    y: 10
+    width: 120
+    height: 200
+  RowHeight: 30
+  ScoreGUISkin: {fileID: 11400000, guid: 4fa6038200bb96e4488685c8d75b1a95, type: 2}
+  gamestateController: {fileID: 0}
+  showScores: 0
 --- !u!1 &1887844916
 GameObject:
   m_ObjectHideFlags: 0
@@ -573,47 +593,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6a5666e3c5d4af4babeb688c449f9a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &1982182034
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 400000, guid: 57102c1fb3d6d9441bfa093852425ce5, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 57102c1fb3d6d9441bfa093852425ce5, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 57102c1fb3d6d9441bfa093852425ce5, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 57102c1fb3d6d9441bfa093852425ce5, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 57102c1fb3d6d9441bfa093852425ce5, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 57102c1fb3d6d9441bfa093852425ce5, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 57102c1fb3d6d9441bfa093852425ce5, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 57102c1fb3d6d9441bfa093852425ce5, type: 2}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 57102c1fb3d6d9441bfa093852425ce5, type: 2}
-  m_RootGameObject: {fileID: 15741296}
-  m_IsPrefabParent: 0
-  m_IsExploded: 1
