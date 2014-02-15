@@ -8,6 +8,14 @@ public class PedController : SingletonMonoBehaviour<PedController>
     private readonly List<Ped> peds = new List<Ped>();
     private GameObject pedPrefab;
 
+    public IEnumerable<Ped> Peds
+    {
+        get
+        {
+            return this.peds;
+        }
+    }
+
     protected override void Start()
     {
         base.Start();
