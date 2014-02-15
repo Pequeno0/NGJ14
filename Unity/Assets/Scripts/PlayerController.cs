@@ -94,12 +94,12 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
                 foreach (Touch t in touches)
                 {
                     if (t.position.x < middleX - (middleX / 2))
-                        direction += new Vector3(1, 0);
-                    if (t.position.x > middleX + middleX / 2)
                         direction += new Vector3(-1, 0);
+                    if (t.position.x > middleX + middleX / 2)
+                        direction += new Vector3(1, 0);
                     if (t.position.y < middleY - (middleY / 2))
                         direction += new Vector3(0, 1);
-                    if (t.position.y > middleX + middleY / 2)
+                    if (t.position.y > middleY + middleY / 2)
                         direction += new Vector3(0, -1);
                 }
 

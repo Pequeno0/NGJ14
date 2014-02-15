@@ -36,8 +36,11 @@ public class PedController : SingletonMonoBehaviour<PedController>
     {
         var ped = this.peds.First(p => p.Id == id);
         ped.Transform.rigidbody.velocity = direction * 1f * 2f;
-        Quaternion rotationToLookAt = Quaternion.LookRotation(direction);
-        ped.Transform.rotation = Quaternion.Lerp(this.transform.rotation, rotationToLookAt, Time.deltaTime);
+        if (direction != Vector3.zero)
+        {
+            Quaternion rotationToLookAt = Quaternion.LookRotation(direction);
+            ped.Transform.rotation = Quaternion.Lerp(this.transform.rotation, rotationToLookAt, Time.deltaTime);
+        }
     }
 
     public void Update()
