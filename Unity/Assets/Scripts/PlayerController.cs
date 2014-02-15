@@ -54,7 +54,6 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
 
     private Player AddPlayer(NetworkPlayer networkPlayer)
     {
-        Debug.Log(string.Concat("Adding to player list. Current count=", this.players.Count, " Adding=", networkPlayer));
         var player = this.players.FirstOrDefault(p => p.NetworkPlayer.Equals(networkPlayer));
         if (player == null)
         {
@@ -125,7 +124,7 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
                 }
             }
 
-            Player player = Players.First(d => d.NetworkPlayer.Equals(Network.player));
+            //Player player = Players.First(d => d.NetworkPlayer.Equals(Network.player));
 
             if (direction != lastDirection)
             {

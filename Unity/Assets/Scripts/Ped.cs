@@ -14,4 +14,16 @@ public class Ped
         get;
         set;
     }
+
+    public bool IsTrading
+    {
+        get;
+        set;
+    }
+
+    public bool IsBackstabbing
+    {
+        get;
+        set;
+    }
 }
