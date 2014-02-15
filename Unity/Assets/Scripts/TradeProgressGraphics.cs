@@ -78,4 +78,11 @@ public class TradeProgressGraphics : MonoBehaviour {
 		startTime = Time.time;
 
 	}
+
+	public void StopTradingGraphics()
+	{
+		isTrading = false;
+		GetComponent<SpriteRenderer>().enabled = false;
+		
+	}
 }
