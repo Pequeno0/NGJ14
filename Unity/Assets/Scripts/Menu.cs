@@ -123,7 +123,7 @@ public class Menu : BaseMonoBehaviour
                 this.errorMessage = serverEvent.ToString();
                 break;
             case MasterServerEvent.HostListReceived:
-                MasterServer.PollHostList();
+                this.servers = MasterServer.PollHostList();
                 break;
         }
     }
