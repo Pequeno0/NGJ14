@@ -30,7 +30,7 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
 
     private void OnPlayerDisconnected(NetworkPlayer networkPlayer)
     {
-        this.players.RemoveAll(p => p.NetworkPlayer == networkPlayer);
+        this.players.RemoveAll(p => p.NetworkPlayer.guid == networkPlayer.guid);
     }
 
     private void OnServerInitialized()
@@ -55,7 +55,7 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
 
     public void SetPlayerName(NetworkPlayer networkPlayer, string playerName)
     {
-        var player = this.players.FirstOrDefault(p => p.NetworkPlayer == networkPlayer);
+        var player = this.players.FirstOrDefault(p => p.NetworkPlayer.guid == networkPlayer.guid);
         if (player == null)
         {
             player = this.AddPlayer(networkPlayer);
