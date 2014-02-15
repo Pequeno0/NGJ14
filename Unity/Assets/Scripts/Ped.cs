@@ -32,4 +32,10 @@ public class Ped
         get;
         set;
     }
+
+    public Vector3 LastPosSent
+    {
+        get;
+        set;
+    }
 }
