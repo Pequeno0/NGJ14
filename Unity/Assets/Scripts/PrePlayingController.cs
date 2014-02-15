@@ -37,9 +37,9 @@ public class PrePlayingController : SingletonMonoBehaviour<PrePlayingController>
                         yield return null;
 
                         // and then one for the bot
-                        this.NetworkMessageController.AddPed(id, Vector3.zero, Vector3.zero);
-                        id++;
-                        yield return null;
+                        //this.NetworkMessageController.AddPed(id, Vector3.zero, Vector3.zero);
+                        //id++;
+                        //yield return null;
                     }
 
                     this.NetworkMessageController.Play();
