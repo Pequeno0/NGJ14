@@ -124,7 +124,7 @@ public class Menu : BaseMonoBehaviour
     private void OnServerInitialized()
     {
         MasterServer.RegisterHost(Menu.gameTypeName, this.gameName);
-        this.NetworkMessageController.SetPlayerInfo(PlayerPrefsVars.PlayerName);
+        //this.NetworkMessageController.SetPlayerInfo(PlayerPrefsVars.PlayerName);
     }
 
     private void OnDestroy()
