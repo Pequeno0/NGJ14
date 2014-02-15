@@ -75,6 +75,8 @@ public class TradeProgressGraphics : MonoBehaviour {
         this.duration = duration;
         GetComponent<SpriteRenderer>().enabled = true;
 
+		Debug.Log("Start Graphics on " + gameObject.GetInstanceID());
+
 	}
 
 	public void StopTradingGraphics()
