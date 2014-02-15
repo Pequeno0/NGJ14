@@ -49,7 +49,8 @@ public class PedController : SingletonMonoBehaviour<PedController>
     {
         int id = this.PlayerController.Players.First(d => d.NetworkPlayer == np).PedId;
         var ped = this.peds.First(p => p.Id == id);
-        ped.Transform.rigidbody.velocity = direction * 1f * 2f;
+        ped.Direction = direction;
+        ped.Transform.rigidbody.velocity = ped.Direction * 1f * 2f;
         if (direction != Vector3.zero)
         {
             Quaternion rotationToLookAt = Quaternion.LookRotation(direction);
@@ -64,8 +65,9 @@ public class PedController : SingletonMonoBehaviour<PedController>
         {
             foreach (Ped ped in peds)
             {
-                if (ped.Transform.position.z < -0.7f && ped.Transform.position.z > -0.6f)
-                    ped.Transform.position = new Vector3(ped.Transform.position.x, ped.Transform.position.y, -0.7f);
+                //if (ped.Transform.position.z < -0.7f && ped.Transform.position.z > -0.6f)
+                //    ped.Transform.position = new Vector3(ped.Transform.position.x, ped.Transform.position.y, -0.7f);
+                ped.Transform.rigidbody.velocity = ped.Direction * 1f * 2f;
                 this.NetworkMessageController.UpdatePed(ped.Id, ped.Transform.position, ped.Transform.eulerAngles, ped.Transform.rigidbody.velocity.normalized, ped.IsTrading, ped.IsBackstabbing);
             }
         }

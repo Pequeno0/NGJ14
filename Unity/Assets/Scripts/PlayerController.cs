@@ -127,7 +127,6 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
 
             if (direction != lastDirection)
             {
-                print(direction);
                 if (Network.isClient)
                 {
                     this.NetworkMessageController.Reliable.RPC("UpdatePlayerDirection", RPCMode.Server, direction.normalized);

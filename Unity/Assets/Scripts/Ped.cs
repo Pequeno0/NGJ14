@@ -26,4 +26,10 @@ public class Ped
         get;
         set;
     }
+
+    public Vector3 Direction
+    {
+        get;
+        set;
+    }
 }
