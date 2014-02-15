@@ -13,14 +13,7 @@ public class ScoreBoard : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        AllPlayerScores.Add(new PlayerScoreObject() { Name = "Test1", CurrentScore = 100});
-	    AllPlayerScores.Add(new PlayerScoreObject() { Name = "Test2", CurrentScore = 135});
-	    AllPlayerScores.Add(new PlayerScoreObject() { Name = "Johs", CurrentScore = 140});
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+        
 	}
 
     void OnGUI()
@@ -34,7 +27,7 @@ public class ScoreBoard : MonoBehaviour {
         GUILayout.BeginArea(ScoreBoardRect);
         GUILayout.Box("SCORES");
 
-        foreach (var score in AllPlayerScores.OrderBy( m => m.CurrentScore))
+        foreach (var score in AllPlayerScores.OrderBy( m => m.Player.Score))
             GUILayout.Box(score.ToString());
 
         GUILayout.EndArea();
@@ -42,15 +35,19 @@ public class ScoreBoard : MonoBehaviour {
         if (ScoreGUISkin != null)
             GUI.skin = tempSkin;
     }
+
+    public void AddPlayerScoreObject(Player player)
+    {
+        AllPlayerScores.Add(new PlayerScoreObject() { Player = player });
+    }
 }
 
 public class PlayerScoreObject
 {
-    public string Name;
-    public int CurrentScore;
+    public Player Player;
 
     public override string ToString()
     {
-        return string.Format("{0} : {1}", Name, CurrentScore);
+        return string.Format("{0} : {1}", this.Player.Name, this.Player.Score);
     }
 }

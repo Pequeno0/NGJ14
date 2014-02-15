@@ -20,4 +20,10 @@ public class Player
         get;
         set;
     }
+
+    public int Score
+    {
+        get;
+        set;
+    }
 }
