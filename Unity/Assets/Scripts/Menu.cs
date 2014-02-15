@@ -9,12 +9,13 @@ public class Menu : BaseMonoBehaviour
     private HostData[] servers = new HostData[0];
     private string gameName = string.Empty;
     private string errorMessage = string.Empty;
-    public float GuiRatio = 1f;
+    private float GuiRatio = 1f;
 
     protected override void Start()
     {
         base.Start();
         this.RefreshServerList();
+        GuiRatio = Screen.width / 800;
     }
 
     /// <summary>
