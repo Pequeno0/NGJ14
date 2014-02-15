@@ -58,7 +58,7 @@ public class PedController : SingletonMonoBehaviour<PedController>
         int id = this.PlayerController.Players.First(d => d.NetworkPlayer == np).PedId;
         var ped = this.peds.First(p => p.Id == id);
         ped.Direction = direction;
-        ped.Transform.rigidbody.velocity = ped.Direction * 1f * 2f;
+        ped.Transform.rigidbody.velocity = ped.Direction * 1f * MOVEMENTSPEED;
         if (direction != Vector3.zero)
         {
             Quaternion rotationToLookAt = Quaternion.LookRotation(direction);
