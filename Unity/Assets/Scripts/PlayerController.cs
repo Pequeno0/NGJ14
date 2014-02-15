@@ -36,7 +36,7 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
 
     private void OnPlayerDisconnected(NetworkPlayer networkPlayer)
     {
-        this.players.RemoveAll(p => p.NetworkPlayer.guid == networkPlayer.guid);
+        this.players.RemoveAll(p => p.NetworkPlayer.Equals(networkPlayer));
     }
 
     private void OnServerInitialized()
@@ -54,7 +54,8 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
 
     private Player AddPlayer(NetworkPlayer networkPlayer)
     {
-        var player = this.players.FirstOrDefault(p => p.NetworkPlayer.guid == networkPlayer.guid);
+        Debug.Log(string.Concat("Adding to player list. Current count=", this.players.Count, " Adding=", networkPlayer));
+        var player = this.players.FirstOrDefault(p => p.NetworkPlayer.Equals(networkPlayer));
         if (player == null)
         {
             player = new Player();
@@ -65,7 +66,7 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
 
     public void SetPlayerName(NetworkPlayer networkPlayer, string playerName)
     {
-        var player = this.players.FirstOrDefault(p => p.NetworkPlayer.guid == networkPlayer.guid);
+        var player = this.players.FirstOrDefault(p => p.NetworkPlayer.Equals(networkPlayer));
         if (player == null)
         {
             player = this.AddPlayer(networkPlayer);
@@ -121,7 +122,7 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
                 }
             }
 
-            Player player = Players.First(d => d.NetworkPlayer.guid == Network.player.guid);
+            Player player = Players.First(d => d.NetworkPlayer.Equals(Network.player));
 
             if (direction != lastDirection)
             {

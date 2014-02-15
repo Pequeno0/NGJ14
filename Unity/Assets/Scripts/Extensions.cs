@@ -6,10 +6,10 @@ public static class Extensions
     public static NetworkPlayer GetActualSender(this NetworkMessageInfo messageInfo)
     {
         var networkPlayer = messageInfo.sender;
-        if (networkPlayer.guid.Length < 2)
-        {
-            networkPlayer = Network.player;
-        }
+        //if (networkPlayer)
+        //{
+        //    networkPlayer = Network.player;
+        //}
         return networkPlayer;
     }
 }
