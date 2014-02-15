@@ -3,6 +3,7 @@ using System.Collections;
 
 public partial class NetworkMessageController : BaseMonoBehaviour
 {
+    
     public NetworkView Reliable;
     public NetworkView Unreliable;
 
@@ -36,14 +37,14 @@ public partial class NetworkMessageController : BaseMonoBehaviour
     {
         if(Network.isServer)
         {
-            this.Unreliable.RPC("OnUpdatePed", RPCMode.All, position, rotation);
+            this.Unreliable.RPC("OnUpdatePed", RPCMode.All, id, position, rotation);
         }
     }
 
     [RPC]
     private void OnUpdatePed(int id, Vector3 position, Vector3 rotation, NetworkMessageInfo messageInfo)
     {
-        this.PedController.UpdatePed(id, position, rotation);
+        this.PedController.UpdatePedFromServer(id, position, rotation);
     }
 
     [RPC]
@@ -63,13 +64,45 @@ public partial class NetworkMessageController : BaseMonoBehaviour
     }
 
     [RPC]
-    public void CreateMapBorder()
+    public void CreateMapBorder(int horiontalChunkCount, int verticalChuckCount, int chunkWidth, int chunkHeight)
     {
-        //var parentGo = GameObject.Find("Border");
-        //if (parent == null)
-        //    parent = new GameObject().transform;
+        var border = Resources.Load("InvisibleBorder", typeof(Transform)) as Transform;
+        if (border != null)
+        {
+            var offsetX = ((horiontalChunkCount - 1f) / 2f) * chunkWidth;
+            var offsetY = ((verticalChuckCount - 1f) / 2f) * chunkHeight;
 
+            var tempX = horiontalChunkCount * chunkWidth;
+            var tempY = verticalChuckCount * chunkHeight;
 
+            var left = -chunkWidth / 2 - 1;
+            var right = chunkWidth * horiontalChunkCount - chunkWidth / 2;
+            var bottom = -chunkHeight / 2 - 1;
+            var top = chunkHeight * verticalChuckCount - chunkHeight / 2;
+
+            var borderParent = new GameObject().transform;
+            borderParent.name = "Border";
+
+            var scale = new Vector3(tempX + 2, 1, 1);
+            border.localScale = scale;
+
+            var temp = Transform.Instantiate(border, new Vector3(offsetX, top, -.5f), border.rotation) as Transform;
+            temp.name = "Border top";
+            temp.parent = borderParent;
+            temp = Transform.Instantiate(border, new Vector3(offsetX, bottom, -.5f), border.rotation) as Transform;
+            temp.parent = borderParent;
+            temp.name = "Border bottom";
+
+            scale = new Vector3(1, tempY + 2, 1);
+            border.localScale = scale;
+
+            temp = Transform.Instantiate(border, new Vector3(right, offsetY, -.5f), border.rotation) as Transform;
+            temp.name = "Border right";
+            temp.parent = borderParent;
+            temp = Transform.Instantiate(border, new Vector3(left, offsetY, -.5f), border.rotation) as Transform;
+            temp.name = "Border left";
+            temp.parent = borderParent;
+        }
     }
 
     public void PrePlay()

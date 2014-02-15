@@ -24,6 +24,11 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
         }
     }
 
+    private void OnConnectedToServer()
+    {
+        this.AddPlayer(Network.player);
+    }
+
     private void OnPlayerConnected(NetworkPlayer networkPlayer)
     {
         this.AddPlayer(networkPlayer);
@@ -31,7 +36,7 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
 
     private void OnPlayerDisconnected(NetworkPlayer networkPlayer)
     {
-        this.players.RemoveAll(p => p.NetworkPlayer.guid == networkPlayer.guid);
+        this.players.RemoveAll(p => p.NetworkPlayer.Equals(networkPlayer));
     }
 
     private void OnServerInitialized()
@@ -49,14 +54,19 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
 
     private Player AddPlayer(NetworkPlayer networkPlayer)
     {
-        var player = new Player();
-        this.players.Add(player);
+        Debug.Log(string.Concat("Adding to player list. Current count=", this.players.Count, " Adding=", networkPlayer));
+        var player = this.players.FirstOrDefault(p => p.NetworkPlayer.Equals(networkPlayer));
+        if (player == null)
+        {
+            player = new Player();
+            this.players.Add(player);
+        }
         return player;
     }
 
     public void SetPlayerName(NetworkPlayer networkPlayer, string playerName)
     {
-        var player = this.players.FirstOrDefault(p => p.NetworkPlayer.guid == networkPlayer.guid);
+        var player = this.players.FirstOrDefault(p => p.NetworkPlayer.Equals(networkPlayer));
         if (player == null)
         {
             player = this.AddPlayer(networkPlayer);
@@ -67,6 +77,8 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
     public float speed = 1f;
     float middleX = Screen.width / 2;
     float middleY = Screen.height / 2;
+    Vector3 lastDirection = Vector3.zero;
+
     public void Update()
     {
         if (this.GameStateController.CurrentGameState == GameState.Playing)
@@ -110,15 +122,22 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
                 }
             }
 
+            Player player = Players.First(d => d.NetworkPlayer.Equals(Network.player));
+
+            if (direction != lastDirection)
+            {
+                print(direction);
+                if (Network.isClient)
+                {
+                    this.NetworkMessageController.Reliable.RPC("UpdatePlayerDirection", RPCMode.Server, player.PedId, direction);
+                }
+                else
+                    this.NetworkMessageController.UpdatePlayerDirection(player.PedId, direction);
+                //this.NetworkMessageController.UpdatePlayerDirection(player.PedId, direction);
+            }
+            lastDirection = direction;
             
-            //this.rigidbody.velocity += direction * speed * Time.deltaTime;
-            this.transform.position += direction * speed * Time.deltaTime;
-            Quaternion rotationToLookAt = Quaternion.LookRotation(direction);
-            this.transform.rotation = Quaternion.Lerp(this.transform.rotation, rotationToLookAt, Time.deltaTime);
-            Player player = Players.First(d => d.NetworkPlayer.guid == Network.player.guid);
-
-
-            this.PedController.UpdatePed(player.PedId, this.transform.position, this.transform.eulerAngles);
+            //this.PedController.UpdatePed(player.PedId, this.transform.position);
         }
     }
 }

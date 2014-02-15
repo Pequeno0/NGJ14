@@ -97,7 +97,7 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1982182034}
   m_GameObject: {fileID: 15741296}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0139a1f6807013d45b191e32719b4526, type: 3}
   m_Name: 
@@ -534,6 +534,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31c9e96dcb64690449973450cba7fee7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GuiRatio: 1
 --- !u!4 &1356752177
 Transform:
   m_ObjectHideFlags: 0
@@ -724,6 +725,10 @@ Prefab:
     - target: {fileID: 400000, guid: 57102c1fb3d6d9441bfa093852425ce5, type: 2}
       propertyPath: m_LocalRotation.w
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 57102c1fb3d6d9441bfa093852425ce5, type: 2}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 57102c1fb3d6d9441bfa093852425ce5, type: 2}

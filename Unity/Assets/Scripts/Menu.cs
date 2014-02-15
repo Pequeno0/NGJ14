@@ -9,18 +9,31 @@ public class Menu : BaseMonoBehaviour
     private HostData[] servers = new HostData[0];
     private string gameName = string.Empty;
     private string errorMessage = string.Empty;
+    private float GuiRatio = 1f;
 
     protected override void Start()
     {
         base.Start();
         this.RefreshServerList();
+        GuiRatio = Screen.width / 800f;
+    }
+
+    /// <summary>
+    /// Scale the gui matrix, determined by the gui ratio
+    /// </summary>
+    private void SetGUIScale()
+    {
+        var scale = new Vector3(GuiRatio, GuiRatio, 1f);
+        GUI.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, scale);
     }
 
     private void OnGUI()
     {
+        SetGUIScale();
+        
         if (this.GameStateController.CurrentGameState != GameState.Playing)
         {
-            var bounds = new Rect(0, 0, 300, Screen.height);
+            var bounds = new Rect(0, 0, 300 , Screen.height / GuiRatio);
             GUI.Window(1, bounds, this.RenderWindow, this.GameStateController.CurrentGameState.ToString());
         }
     }
