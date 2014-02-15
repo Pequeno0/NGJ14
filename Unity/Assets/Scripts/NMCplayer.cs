@@ -6,7 +6,6 @@ partial class NetworkMessageController : BaseMonoBehaviour
     [RPC]
     public void UpdatePlayerDirection(Vector3 direction, NetworkMessageInfo info)
     {
-        print("Recieved Update Player Direction");
         if (Network.isServer)
         {
             
