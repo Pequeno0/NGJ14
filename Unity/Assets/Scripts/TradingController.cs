@@ -26,14 +26,15 @@ public partial class TradingController : SingletonMonoBehaviour<TradingControlle
         }
 
         // check if a trade can be started
-        foreach (var outer in this.readyToTradeStates)
+        var copy = this.readyToTradeStates.ToArray();
+        foreach (var outer in copy)
         {
             if (!outer.Value)
             {
                 continue;
             }
 
-            foreach (var inner in this.readyToTradeStates)
+            foreach (var inner in copy)
             {
                 if (!inner.Value)
                 {
@@ -54,7 +55,7 @@ public partial class TradingController : SingletonMonoBehaviour<TradingControlle
                 var innerTransform = innerPed.Transform;
 
                 var distance = Vector3.Distance(outerTransform.position, innerTransform.position);
-                if (distance < 1.2f)
+                if (distance < 1.0f)
                 {
                     this.StartTrade(outerPlayer, innerPlayer, outerPed, innerPed, outerTransform, innerTransform);
                 }
