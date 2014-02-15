@@ -32,8 +32,9 @@ public class PedController : SingletonMonoBehaviour<PedController>
         ped.Transform.rotation = Quaternion.Euler(rotation);
     }
 
-    public void UpdatePedFromClient(int id, Vector3 direction)
+    public void UpdatePedFromClient(NetworkPlayer np, Vector3 direction)
     {
+        int id = this.PlayerController.Players.First(d => d.NetworkPlayer == np).PedId;
         var ped = this.peds.First(p => p.Id == id);
         ped.Transform.rigidbody.velocity = direction * 1f * 2f;
         if (direction != Vector3.zero)

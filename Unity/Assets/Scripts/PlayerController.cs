@@ -98,9 +98,9 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
                     if (t.position.x > middleX + middleX / 2)
                         direction += new Vector3(1, 0);
                     if (t.position.y < middleY - (middleY / 2))
-                        direction += new Vector3(0, 1);
-                    if (t.position.y > middleY + middleY / 2)
                         direction += new Vector3(0, -1);
+                    if (t.position.y > middleY + middleY / 2)
+                        direction += new Vector3(0, 1);
                 }
 
                
@@ -132,10 +132,10 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
                 print(direction);
                 if (Network.isClient)
                 {
-                    this.NetworkMessageController.Reliable.RPC("UpdatePlayerDirection", RPCMode.Server, player.PedId, direction);
+                    this.NetworkMessageController.Reliable.RPC("UpdatePlayerDirection", RPCMode.Server, direction);
                 }
                 else
-                    this.NetworkMessageController.UpdatePlayerDirection(player.PedId, direction);
+                    this.NetworkMessageController.UpdatePlayerDirection(direction, new NetworkMessageInfo());
                 //this.NetworkMessageController.UpdatePlayerDirection(player.PedId, direction);
             }
             lastDirection = direction;

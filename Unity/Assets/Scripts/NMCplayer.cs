@@ -4,12 +4,13 @@ using System.Collections;
 partial class NetworkMessageController : BaseMonoBehaviour
 {
     [RPC]
-    public void UpdatePlayerDirection(int id, Vector3 direction)
+    public void UpdatePlayerDirection(Vector3 direction, NetworkMessageInfo info)
     {
         print("Recieved Update Player Direction");
         if (Network.isServer)
         {
-            this.PedController.UpdatePedFromClient(id, direction);
+            
+            this.PedController.UpdatePedFromClient(info.sender, direction);
         }
     }
 }
