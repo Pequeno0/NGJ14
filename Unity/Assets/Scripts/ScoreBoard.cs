@@ -11,12 +11,12 @@ public class ScoreBoard : MonoBehaviour {
     public int RowHeight = 30;
     public GUISkin ScoreGUISkin;
     public GameStateController gamestateController;
-    public Matrix4x4 MenuGUIMatrix;
+    private Matrix4x4 MenuGUIMatrix;
     public bool showScores = false;
 
 	// Use this for initialization
 	void Start () {
-        gamestateController = GameObject.FindObjectOfType<Menu>().GameStateController;
+        //gamestateController = gameObject.GetComponent<Menu>().GameStateController;
     }
 
     void Update()

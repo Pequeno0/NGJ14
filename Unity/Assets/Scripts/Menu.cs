@@ -9,7 +9,7 @@ public class Menu : BaseMonoBehaviour
     private HostData[] servers = new HostData[0];
     private string gameName = string.Empty;
     private string errorMessage = string.Empty;
-    private float GuiRatio = 1f;
+    public float GuiRatio = 1f;
 
 	public Texture upArrow;
 	[HideInInspector]
