@@ -34,16 +34,23 @@ public partial class TradingController : SingletonMonoBehaviour<TradingControlle
         {
             if (!ped.IsTrading)
             {
+                List<TradePair> tradesToRemove = null;
                 foreach (TradePair trade in trades)
                 {
-                    if ( Vector3.Distance(ped.Transform.position, trade.Initiater.transform.position) < 1.2f)
+                    if (Vector3.Distance(ped.Transform.position, trade.Initiater.transform.position) < 1.2f)
                     {
                         Ped otherPed = PedController.Peds.SingleOrDefault(d => d.Transform == trade.Initiater.transform);
                         if (otherPed == null)
                             continue;
-                        CheckDistruptionAvailableDistance(ped, otherPed);
+                        if (CheckDistruptionAvailableDistance(ped, otherPed))
+                        {
+                            tradesToRemove.Add(trade);
+                            continue;
+                        }
                     }
                 }
+                foreach(TradePair t in tradesToRemove)
+                    trades.Remove(t);
             }
         }
 
