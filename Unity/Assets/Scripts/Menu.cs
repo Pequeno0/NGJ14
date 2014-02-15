@@ -89,7 +89,6 @@ public class Menu : BaseMonoBehaviour
             if (GUILayout.Button("Play"))
             {
                 this.NetworkMessageController.PrePlay();
-                //this.GameStateController.PrePlay();
             }
         }
         if (GUILayout.Button("Cancel"))

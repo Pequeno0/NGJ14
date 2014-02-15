@@ -42,7 +42,7 @@ public class PrePlayingController : SingletonMonoBehaviour<PrePlayingController>
                         yield return null;
                     }
 
-                    this.GameStateController.Play();
+                    this.NetworkMessageController.Play();
                 }
             }
             yield return null;
