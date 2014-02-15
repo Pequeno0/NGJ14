@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Linq;
 using System.Collections;
 using System.Linq;
 
@@ -60,6 +61,8 @@ public partial class NetworkMessageController : BaseMonoBehaviour
         yield return null;
         var chunk = GameObject.Find(chunkName);
         chunk.name = levelChunkName;
+        Transform[] objects = chunk.GetComponentsInChildren<Transform>();
+
         if (Network.isClient)
         {
             Collider[] colliders = chunk.GetComponentsInChildren<Collider>();
@@ -68,8 +71,32 @@ public partial class NetworkMessageController : BaseMonoBehaviour
                 col.enabled = false;
             }
         }
+
+        var grounds = objects.Where(d => d.name == "Ground");
+        GameObject groundsObject = GameObject.Find("Grounds");
+        if (groundsObject == null)
+            groundsObject = new GameObject();
+        groundsObject.transform.position = Vector3.zero;
+        groundsObject.name = "Grounds";
+        foreach (Transform g in grounds)
+        {
+            g.position = position;
+            g.parent = groundsObject.transform;
+        }
+
         chunk.transform.position = position;
         chunk.transform.rotation = rotation;
+        foreach (Transform t in objects)
+        {
+            if (t.gameObject.name.Contains("Level chunk") || t.gameObject.name == "Ground")
+                continue;
+            //if ()
+            //{
+            //    t.transform.localRotation = Quaternion.Inverse(rotation);
+            //}
+            t.transform.rotation = Quaternion.identity;
+        }
+
     }
 
     [RPC]
