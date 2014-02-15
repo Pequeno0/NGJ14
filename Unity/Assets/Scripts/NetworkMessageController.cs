@@ -1,19 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class NetworkMessageController : MonoBehaviour
+public class NetworkMessageController : BaseMonoBehaviour
 {
-    private PlayerController playerController;
-    private PedController pedController;
-
     public NetworkView Reliable;
     public NetworkView Unreliable;
-
-    private void Start()
-    {
-        this.playerController = PlayerController.Singleton;
-        this.pedController = PedController.Singleton;
-    }
 
     public void SetPlayerInfo(string name)
     {
@@ -23,7 +14,8 @@ public class NetworkMessageController : MonoBehaviour
     [RPC]
     private void OnSetPlayerInfo(string name, NetworkMessageInfo messageInfo)
     {
-        this.playerController.SetPlayerName(messageInfo.sender, name);
+        var networkPlayer = messageInfo.GetActualSender();
+        this.PlayerController.SetPlayerName(networkPlayer, name);
     }
 
     public void AddPed(int id, Vector3 position, Vector3 rotation)
@@ -37,7 +29,7 @@ public class NetworkMessageController : MonoBehaviour
     [RPC]
     private void OnAddPed(int id, Vector3 position, Vector3 rotation, NetworkMessageInfo messageInfo)
     {
-        this.pedController.AddPed(id, position, rotation);
+        this.PedController.AddPed(id, position, rotation);
     }
 
     public void UpdatePed(int id, Vector3 position, Vector3 rotation)
@@ -51,6 +43,6 @@ public class NetworkMessageController : MonoBehaviour
     [RPC]
     private void OnUpdatePed(int id, Vector3 position, Vector3 rotation, NetworkMessageInfo messageInfo)
     {
-        this.pedController.UpdatePed(id, position, rotation);
+        this.PedController.UpdatePed(id, position, rotation);
     }
 }
