@@ -3,6 +3,7 @@ using System.Collections;
 
 public partial class NetworkMessageController : BaseMonoBehaviour
 {
+    
     public NetworkView Reliable;
     public NetworkView Unreliable;
 
@@ -36,14 +37,14 @@ public partial class NetworkMessageController : BaseMonoBehaviour
     {
         if(Network.isServer)
         {
-            this.Unreliable.RPC("OnUpdatePed", RPCMode.All, position, rotation);
+            this.Unreliable.RPC("OnUpdatePed", RPCMode.All, id, position, rotation);
         }
     }
 
     [RPC]
     private void OnUpdatePed(int id, Vector3 position, Vector3 rotation, NetworkMessageInfo messageInfo)
     {
-        this.PedController.UpdatePed(id, position, rotation);
+        this.PedController.UpdatePedFromServer(id, position, rotation);
     }
 
     [RPC]

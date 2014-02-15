@@ -25,11 +25,19 @@ public class PedController : SingletonMonoBehaviour<PedController>
         this.peds.Add(ped);
     }
 
-    public void UpdatePed(int id, Vector3 position, Vector3 rotation)
+    public void UpdatePedFromServer(int id, Vector3 position, Vector3 rotation)
     {
         var ped = this.peds.First(p => p.Id == id);
         ped.Transform.position = position;
         ped.Transform.rotation = Quaternion.Euler(rotation);
+    }
+
+    public void UpdatePedFromClient(int id, Vector3 direction)
+    {
+        var ped = this.peds.First(p => p.Id == id);
+        ped.Transform.rigidbody.velocity = direction * 1f * 2f;
+        Quaternion rotationToLookAt = Quaternion.LookRotation(direction);
+        ped.Transform.rotation = Quaternion.Lerp(this.transform.rotation, rotationToLookAt, Time.deltaTime);
     }
 
     public void Update()
