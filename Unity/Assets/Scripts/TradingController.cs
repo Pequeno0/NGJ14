@@ -9,11 +9,22 @@ public class TradingController : SingletonMonoBehaviour<TradingController>
 
     public void Trade(GameObject initiater, GameObject other)
     {
+        if (initiater == other)
+        {
+            return;
+        }
+
+        if (!initiater.name.StartsWith("Ped") || !other.name.StartsWith("Ped"))
+        {
+            return;
+        }
+
         if (this.trades.Any(t => (t.Initiater == initiater && t.Other == other) || (t.Other == initiater && t.Initiater == other)))
         {
             return;
         }
 
+        Debug.Log(string.Concat(initiater.name, " ", other.name));
         var initiaterPed = this.PedController.Peds.First(p => p.Transform == initiater.transform);
         var otherPed = this.PedController.Peds.First(p => p.Transform == other.transform);
 

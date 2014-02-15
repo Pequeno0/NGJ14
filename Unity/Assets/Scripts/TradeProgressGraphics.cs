@@ -8,7 +8,6 @@ public class TradeProgressGraphics : MonoBehaviour {
 
 	public float startTime;
     private float duration;
-	private static float TRADEDURATION = 4;
 
 	// Update is called once per frame
 	void Update () {
