@@ -355,28 +355,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GuiRatio: 1
-  upArrow: {fileID: 2800000, guid: ec7930fbbb9c5a64ea772e69a69f4760, type: 3}
+  upArrow: {fileID: 2800000, guid: 4d12224b3d1dd66438a64db80eed497a, type: 3}
   upArrowRect:
     serializedVersion: 2
     x: 0
     y: 0
     width: 0
     height: 0
-  downArrow: {fileID: 2800000, guid: 13f31d9670e955446b97ed38a0d8d826, type: 3}
+  downArrow: {fileID: 2800000, guid: 8f6f8b8ca94a1a1408eb075a0daee61b, type: 3}
   downArrowRect:
     serializedVersion: 2
     x: 0
     y: 0
     width: 0
     height: 0
-  leftArrow: {fileID: 2800000, guid: dd99fb13a0c2da74198b76240f38aaac, type: 3}
+  leftArrow: {fileID: 2800000, guid: 487fc948bb016dd4d94c47f198a48160, type: 3}
   leftArrowRect:
     serializedVersion: 2
     x: 0
     y: 0
     width: 0
     height: 0
-  rightArrow: {fileID: 2800000, guid: 52fda494626a65d4d9fa12efa51d09ba, type: 3}
+  rightArrow: {fileID: 2800000, guid: eac9aff49d259854ca71f9958b24ae27, type: 3}
   rightArrowRect:
     serializedVersion: 2
     x: 0
@@ -405,9 +405,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f48855de563fc4143b4f4d27ced15286, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WindowWidth: 150
-  WindowHeight: 100
-  MenuSkin: {fileID: 11400000, guid: 4fa6038200bb96e4488685c8d75b1a95, type: 2}
+  WindowWidth: 0
+  WindowHeight: 0
+  MenuSkin: {fileID: 0}
   MenuButtonRect:
     serializedVersion: 2
     x: 0
@@ -497,7 +497,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 2
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
