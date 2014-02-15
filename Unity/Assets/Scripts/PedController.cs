@@ -31,4 +31,17 @@ public class PedController : SingletonMonoBehaviour<PedController>
         ped.Transform.position = position;
         ped.Transform.rotation = Quaternion.Euler(rotation);
     }
+
+    public void Update()
+    {
+        if (Network.isServer)
+        {
+            foreach (Ped ped in peds)
+            {
+                this.NetworkMessageController.UpdatePed(ped.Id, ped.Transform.position, ped.Transform.eulerAngles);
+            }
+        }
+    }
+    
 }
+
