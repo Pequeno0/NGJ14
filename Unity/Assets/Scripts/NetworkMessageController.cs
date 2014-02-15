@@ -7,17 +7,17 @@ public partial class NetworkMessageController : BaseMonoBehaviour
     public NetworkView Reliable;
     public NetworkView Unreliable;
 
-    public void SetPlayerInfo(string name)
-    {
-        this.Reliable.RPC("OnSetPlayerInfo", RPCMode.AllBuffered, name);
-    }
+    //public void SetPlayerInfo(string name)
+    //{
+    //    this.Reliable.RPC("OnSetPlayerInfo", RPCMode.AllBuffered, name);
+    //}
 
-    [RPC]
-    private void OnSetPlayerInfo(string name, NetworkMessageInfo messageInfo)
-    {
-        var networkPlayer = messageInfo.GetActualSender();
-        this.PlayerController.SetPlayerName(networkPlayer, name);
-    }
+    //[RPC]
+    //private void OnSetPlayerInfo(string name, NetworkMessageInfo messageInfo)
+    //{
+    //    var networkPlayer = messageInfo.GetActualSender();
+    //    this.PlayerController.SetPlayerName(networkPlayer, name);
+    //}
 
     public void AddPed(int id, Vector3 position, Vector3 rotation)
     {

@@ -52,6 +52,10 @@ public class ScoreBoard : MonoBehaviour {
 
             if (ScoreGUISkin != null)
                 GUI.skin = tempSkin;
+
+            // test
+            //if (Network.isServer && GUI.Button(new Rect(Screen.width - 60, 10, 50, 20), "+"))
+            //    gamestateController.NetworkMessageController.AddToPlayerScoreOnServer(Network.player, 50);
         }
     }
 

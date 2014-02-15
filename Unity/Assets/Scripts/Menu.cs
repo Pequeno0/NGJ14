@@ -149,7 +149,7 @@ public class Menu : BaseMonoBehaviour
 
     private void OnConnectedToServer()
     {
-        this.NetworkMessageController.SetPlayerInfo(PlayerPrefsVars.PlayerName);
+        this.NetworkMessageController.SetPlayerInfo(PlayerPrefsVars.PlayerName, Network.player);
         Debug.Log("OnConnectedToServer");
     }
 

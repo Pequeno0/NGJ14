@@ -21,4 +21,15 @@ public partial class NetworkMessageController : BaseMonoBehaviour
         p.Score = newScore;
     }
 
+    public void SetPlayerInfo(string name, NetworkPlayer player)
+    {
+        this.Reliable.RPC("OnSetPlayerInfo", RPCMode.AllBuffered, name, player);
+    }
+
+    [RPC]
+    private void OnSetPlayerInfo(string name, NetworkPlayer player)
+    {
+        //var networkPlayer = messageInfo.GetActualSender();
+        this.PlayerController.SetPlayerName(player, name);
+    }
 }
