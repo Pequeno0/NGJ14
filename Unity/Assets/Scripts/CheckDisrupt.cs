@@ -79,5 +79,6 @@ public partial class TradingController : SingletonMonoBehaviour<TradingControlle
                     trades.Remove(trade);
                 }
             }
+        }
     }
 }
