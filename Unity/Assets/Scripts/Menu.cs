@@ -87,7 +87,7 @@ public class Menu : BaseMonoBehaviour
 
 	private void RenderPlayingGUI()
 	{
-		Debug.Log("Screen height: " + Screen.height);
+//		Debug.Log("Screen height: " + Screen.height);
 
 		int unitSize = Mathf.RoundToInt((float)Screen.height * 0.20f);
 
