@@ -31,6 +31,8 @@ public class Menu : BaseMonoBehaviour
 
 	public static Menu Instance;
 
+    public Texture2D logo;
+
     public bool IsReadyToTrade
     {
         get;
@@ -70,8 +72,10 @@ public class Menu : BaseMonoBehaviour
         if (this.GameStateController.CurrentGameState != GameState.Playing)
         {
 			SetGUIScale();
-			
-            var bounds = new Rect(0, 0, 300 , Screen.height / GuiRatio);
+
+            this.RenderLogo();
+
+            var bounds = new Rect(0, 0, 300, Screen.height / GuiRatio);
             GUI.Window(1, bounds, this.RenderWindow, this.GameStateController.CurrentGameState.ToString());
         }
 		else
@@ -198,6 +202,15 @@ public class Menu : BaseMonoBehaviour
         }
         GUILayout.EndHorizontal();
         GUILayout.Label(this.errorMessage);
+    }
+
+    private void RenderLogo()
+    {
+        var logoRect = new Rect(300.0f, -120.0f, 1024.0f * 0.45f, 1024.0f * 0.45f);
+        GUI.DrawTexture(logoRect, this.logo);
+
+        GUI.BeginGroup(new Rect(logoRect.x, logoRect.xMax, logoRect.width, 400.0f));
+        GUI.EndGroup();
     }
 
     private void RenderLobbyGUI()
