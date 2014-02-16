@@ -105,10 +105,10 @@ public class Menu : BaseMonoBehaviour
 //		Debug.Log("Screen height: " + Screen.height);
         var tradeGroupBounds = new Rect(Screen.width - 200.0f, Screen.height - 200.0f, 200.0f, 200.0f);
         var originalColor = GUI.color;
-        GUI.color = ped.IsTrading ? Color.red : this.IsReadyToTrade ? Color.green : Color.white;
+        GUI.color = ped.IsTrading || !ped.HasItem ? Color.red : this.IsReadyToTrade ? Color.green : Color.white;
         var readyToTrade = GUI.Toggle(tradeGroupBounds, this.IsReadyToTrade, "Ready to trade", GUI.skin.button);
         GUI.color = originalColor;
-        if(!ped.IsTrading)
+        if(!ped.IsTrading && ped.HasItem)
         {
             if (readyToTrade && !this.IsReadyToTrade)
             {
