@@ -61,10 +61,10 @@ public class Menu : BaseMonoBehaviour
 
     private void OnGUI()
     {
-        if (Network.player != null)
-        {
-            GUI.Label(new Rect(Screen.width * 0.5f + 20.0f, Screen.height * 0.5f, 30.0f, 30.0f), Network.player.ToString());
-        }
+        //if (Network.player != null)
+        //{
+        //    GUI.Label(new Rect(Screen.width * 0.5f + 20.0f, Screen.height * 0.5f, 30.0f, 30.0f), Network.player.ToString());
+        //}
         
         if (this.GameStateController.CurrentGameState != GameState.Playing)
         {
