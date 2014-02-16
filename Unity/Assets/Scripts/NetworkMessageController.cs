@@ -200,10 +200,11 @@ public partial class NetworkMessageController : BaseMonoBehaviour
         {
             var player = this.PlayerController.Players.First(p => p.NetworkPlayer.Equals(networkPlayer));
             var ped = this.PedController.Peds.First(p => p.Id == player.PedId);
+            ped.IsTrading = false;
             var graphics = ped.Transform.GetComponentInChildren<TradeProgressGraphics>();
             graphics.StopTradingGraphics();
             // TODO: Insert explosion of items?
-
+            
         }
     }
 
