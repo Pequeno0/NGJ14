@@ -21,6 +21,7 @@ public class ItemPickupController : SingletonMonoBehaviour<ItemPickupController>
 
 	public void Setup()
 	{
+
 		itemPickups = GameObject.FindObjectsOfType<ItemPickup>();
 
 		itemPickups = itemPickups.OrderBy(i => i.transform.position.GetHashCode()).ToArray();
