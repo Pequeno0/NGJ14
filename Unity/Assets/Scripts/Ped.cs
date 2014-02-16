@@ -52,10 +52,17 @@ public class Ped
         set;
     }
 
+	private bool hasItem;
+
     public bool HasItem
     {
-        get;
-        set;
+		get { return hasItem; }
+		set 
+		{ 
+			hasItem = value; 
+
+//			Debug.Log(value + " " + new System.Diagnostics.StackTrace());
+		}
 
     }
 }

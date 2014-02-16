@@ -126,6 +126,9 @@ public partial class NetworkMessageController : BaseMonoBehaviour
             temp.name = "Border left";
             temp.parent = borderParent;
         }
+
+		ItemPickupController.Setup();
+
     }
 
     public void PrePlay()
@@ -220,4 +223,30 @@ public partial class NetworkMessageController : BaseMonoBehaviour
         Debug.Log("OnSetReadyToTradeFromServer " + networkPlayer);
         this.Menu.IsReadyToTrade = isReadyToTrade;
     }
+
+	public void RespawnItemPickupFromServer(int globalID)
+	{
+		this.Reliable.RPC("OnRespawnItemPickupFromServer", RPCMode.Others, globalID);
+	}
+
+	[RPC]
+	private void OnRespawnItemPickupFromServer(int globalID)
+	{
+		ItemPickupController.GetItemPickup(globalID).RespawnItem();
+
+	}
+
+	public void ConsumeItemPickupFromServer(int globalID)
+	{
+		this.Reliable.RPC("OnConsumeItemPickupFromServer", RPCMode.Others, globalID);
+	}
+	
+	[RPC]
+	private void OnConsumeItemPickupFromServer(int globalID)
+	{
+		ItemPickupController.GetItemPickup(globalID).ConsumeItem();
+		
+	}
+
+
 }

@@ -45,7 +45,13 @@ public class BaseMonoBehaviour : MonoBehaviour
         private set;
     }
 
-    protected virtual void Start()
+	public ItemPickupController ItemPickupController
+	{
+		get;
+		private set;
+	}
+	
+	protected virtual void Start()
     {
         this.GameStateController = GameStateController.Singleton;
         this.PedController = PedController.Singleton;
@@ -54,5 +60,6 @@ public class BaseMonoBehaviour : MonoBehaviour
         this.PrePlayingController = PrePlayingController.Singleton;
         this.TradingController = TradingController.Singleton;
         this.Menu = GameObject.FindObjectOfType<Menu>();
+		this.ItemPickupController = ItemPickupController.Singleton;
     }
 }
