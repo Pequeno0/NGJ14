@@ -8,7 +8,7 @@ public partial class TradingController : SingletonMonoBehaviour<TradingControlle
     private readonly Dictionary<NetworkPlayer, bool> readyToTradeStates = new Dictionary<NetworkPlayer, bool>();
     private readonly List<TradePair> trades = new List<TradePair>();
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (!Network.isServer)
         {

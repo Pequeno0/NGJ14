@@ -44,4 +44,11 @@ public class Ped
         get;
         set;
     }
+
+
+    public int FramesSinceLastUpdate
+    {
+        get;
+        set;
+    }
 }

@@ -86,7 +86,7 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
 
     Vector3 lastDirection = Vector3.zero;
 
-    public void Update()
+    public void FixedUpdate()
     {
         
         if (this.GameStateController.CurrentGameState == GameState.Playing)
