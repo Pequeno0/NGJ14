@@ -89,6 +89,7 @@ public class ItemPickup : BaseMonoBehaviour {
 	public void RespawnItemServer()
 	{
 		RespawnItem();
+		isOnCooldown = false;
 		NetworkMessageController.RespawnItemPickupFromServer(globalID);
 	}
 
