@@ -25,6 +25,8 @@ public partial class TradingController : SingletonMonoBehaviour<TradingControlle
                 this.NetworkMessageController.StopTradingGraphics(trade.OtherPlayer.NetworkPlayer);
                 this.NetworkMessageController.AddToPlayerScoreOnServer(trade.InitiaterPlayer.NetworkPlayer, 1);
                 this.NetworkMessageController.AddToPlayerScoreOnServer(trade.OtherPlayer.NetworkPlayer, 1);
+                trade.InitiaterPed.IsTrading = false;
+                trade.OtherPed.IsTrading = false;
                 this.trades.RemoveAt(index);
                 index--;
             }

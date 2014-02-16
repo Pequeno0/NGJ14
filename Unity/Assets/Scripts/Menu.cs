@@ -62,7 +62,7 @@ public class Menu : BaseMonoBehaviour
     {
         if (Network.player != null)
         {
-            GUI.Label(new Rect(Screen.width * 0.5f, Screen.height * 0.5f, 30.0f, 30.0f), Network.player.ToString());
+            GUI.Label(new Rect(Screen.width * 0.5f + 20.0f, Screen.height * 0.5f, 30.0f, 30.0f), Network.player.ToString());
         }
         
         if (this.GameStateController.CurrentGameState != GameState.Playing)
