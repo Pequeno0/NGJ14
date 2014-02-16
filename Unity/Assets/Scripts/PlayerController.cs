@@ -81,6 +81,7 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
             player = this.AddPlayer(networkPlayer);
         }
         player.Name = playerName;
+        player.PedId = int.Parse(networkPlayer.ToString());
     }
 
     Vector3 lastDirection = Vector3.zero;

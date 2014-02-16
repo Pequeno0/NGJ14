@@ -160,8 +160,8 @@ public partial class NetworkMessageController : BaseMonoBehaviour
     public void OnStartTradeGrahicsOnClients(float duration, NetworkPlayer networkPlayer)
     {
         var player = this.PlayerController.Players.First(p => p.NetworkPlayer.Equals(networkPlayer));
-        Debug.Log(string.Concat("OnStartTradeGrahicsOnClients[NetworkPlayer=", networkPlayer, " Player=", player.NetworkPlayer, "]"));
         var ped = this.PedController.Peds.First(p => p.Id == player.PedId);
+        Debug.Log(string.Concat("OnStartTradeGrahicsOnClients[NetworkPlayer=", networkPlayer, " Player=", player.NetworkPlayer, " Ped=", ped.Id, " Ped expected=", player.PedId, "]"));
         var graphics = ped.Transform.GetComponentInChildren<TradeProgressGraphics>();
         graphics.StartTradingGraphics(duration);
     }
