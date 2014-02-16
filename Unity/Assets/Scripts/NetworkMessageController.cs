@@ -180,7 +180,7 @@ public partial class NetworkMessageController : BaseMonoBehaviour
 
     public void StartTradeGrahicsOnClients(float duration, NetworkPlayer networkPlayer)
     {
-        Debug.Log(string.Concat("StartTradeGrahicsOnClients[NetworkPlayer=", networkPlayer, "]"));
+        //Debug.Log(string.Concat("StartTradeGrahicsOnClients[NetworkPlayer=", networkPlayer, "]"));
         this.Reliable.RPC("OnStartTradeGrahicsOnClients", RPCMode.All, duration, networkPlayer);
     }
 
@@ -191,7 +191,7 @@ public partial class NetworkMessageController : BaseMonoBehaviour
         {
             var player = this.PlayerController.Players.First(p => p.NetworkPlayer.Equals(networkPlayer));
             var ped = this.PedController.Peds.First(p => p.Id == player.PedId);
-            Debug.Log(string.Concat("OnStartTradeGrahicsOnClients[NetworkPlayer=", networkPlayer, " Player=", player.NetworkPlayer, " Ped=", ped.Id, " Ped expected=", player.PedId, "]"));
+            //Debug.Log(string.Concat("OnStartTradeGrahicsOnClients[NetworkPlayer=", networkPlayer, " Player=", player.NetworkPlayer, " Ped=", ped.Id, " Ped expected=", player.PedId, "]"));
             var graphics = ped.Transform.GetComponentInChildren<TradeProgressGraphics>();
             graphics.StartTradingGraphics(duration);
         }

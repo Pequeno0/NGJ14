@@ -156,7 +156,7 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
 				
 				
 			}
-			else if (Application.platform == RuntimePlatform.WindowsEditor)
+			else
 			{
 				if (Input.GetKey(KeyCode.LeftArrow))
                 {

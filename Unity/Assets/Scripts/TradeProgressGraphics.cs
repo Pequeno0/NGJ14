@@ -73,7 +73,7 @@ public class TradeProgressGraphics : MonoBehaviour {
 		startTime = Time.time;
         this.duration = duration;
         GetComponent<SpriteRenderer>().enabled = true;
-        Debug.Log("TradeProgressGraphics");
+        //Debug.Log("TradeProgressGraphics");
 	}
 
 	public void StopTradingGraphics()

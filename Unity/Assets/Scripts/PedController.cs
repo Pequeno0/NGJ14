@@ -42,7 +42,7 @@ public class PedController : SingletonMonoBehaviour<PedController>
             Transform = gameObject.transform,
         };
         this.peds.Add(ped);
-        Debug.Log(string.Join(",", this.peds.Select(p => p.Id.ToString()).ToArray()));
+        //Debug.Log(string.Join(",", this.peds.Select(p => p.Id.ToString()).ToArray()));
     }
 
     public void UpdatePedFromServer(int id, Vector3 position, Vector3 rotation, Vector3 direction, bool trading, bool backstabbing, bool hasItem)
