@@ -7,6 +7,14 @@ public partial class NetworkMessageController : BaseMonoBehaviour
 
     public NetworkView Reliable;
     public NetworkView Unreliable;
+    private GameObject fail;
+    private GameObject success;
+
+    public void Start()
+    {
+        fail = Resources.Load<GameObject>("FlashRing01");
+        success = Resources.Load<GameObject>("ShockFlash");
+    }
 
     public void AddPed(int id, Vector3 position, Vector3 rotation)
     {
@@ -205,6 +213,16 @@ public partial class NetworkMessageController : BaseMonoBehaviour
             pedCA.isTrading = false;
             var graphics = ped.Transform.GetComponentInChildren<TradeProgressGraphics>();
             graphics.StopTradingGraphics();
+            if (disrupted)
+            {
+                GameObject failObject = (GameObject)GameObject.Instantiate(fail, ped.Transform.position, Quaternion.identity);
+                Destroy(failObject, 1.5f);
+            }
+            else
+            {
+                GameObject successObject = (GameObject)GameObject.Instantiate(success, ped.Transform.position, Quaternion.identity);
+                Destroy(successObject, 1.5f);
+            }
             // TODO: Insert explosion of items?
             
         }

@@ -23,6 +23,8 @@ public class PedController : SingletonMonoBehaviour<PedController>
         base.Start();
         pedPrefab.Add(Resources.Load<GameObject>("Ped"));
         pedPrefab.Add(Resources.Load<GameObject>("Ped2"));
+        pedPrefab.Add(Resources.Load<GameObject>("Ped3"));
+        pedPrefab.Add(Resources.Load<GameObject>("Ped4"));
         //this.pedPrefab = ;
     }
 
