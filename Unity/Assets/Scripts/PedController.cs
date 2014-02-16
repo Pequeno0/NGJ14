@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public class PedController : SingletonMonoBehaviour<PedController>
 {
     private readonly List<Ped> peds = new List<Ped>();
-    private GameObject pedPrefab;
+    private List<GameObject> pedPrefab = new List<GameObject>();
 
 	private static float MOVEMENTSPEED = 4;
 
@@ -21,12 +21,14 @@ public class PedController : SingletonMonoBehaviour<PedController>
     protected override void Start()
     {
         base.Start();
-        this.pedPrefab = Resources.Load<GameObject>("Ped");
+        pedPrefab.Add(Resources.Load<GameObject>("Ped"));
+        pedPrefab.Add(Resources.Load<GameObject>("Ped2"));
+        //this.pedPrefab = ;
     }
 
     public void AddPed(int id, Vector3 position, Vector3 rotation)
     {
-        var gameObject = (GameObject)GameObject.Instantiate(this.pedPrefab, position, Quaternion.Euler(rotation));
+        var gameObject = (GameObject)GameObject.Instantiate(pedPrefab[id%pedPrefab.Count], position, Quaternion.Euler(rotation));
         if (Network.isClient)
         {
             gameObject.rigidbody.detectCollisions = false;

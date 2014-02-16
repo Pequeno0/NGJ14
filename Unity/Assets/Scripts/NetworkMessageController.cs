@@ -188,13 +188,13 @@ public partial class NetworkMessageController : BaseMonoBehaviour
         }
     }
 
-    public void StopTradingGraphics(NetworkPlayer networkPlayer)
+    public void StopTradingGraphics(bool disrupted, NetworkPlayer networkPlayer)
     {
-        this.Reliable.RPC("OnStopTradingGraphics", RPCMode.All, networkPlayer);
+        this.Reliable.RPC("OnStopTradingGraphics", RPCMode.All, disrupted, networkPlayer);
     }
 
     [RPC]
-    private void OnStopTradingGraphics(NetworkPlayer networkPlayer)
+    private void OnStopTradingGraphics(bool disrupted, NetworkPlayer networkPlayer)
     {
         using (new TimeMeasure("OnStopTradingGraphics"))
         {
@@ -203,6 +203,7 @@ public partial class NetworkMessageController : BaseMonoBehaviour
             var graphics = ped.Transform.GetComponentInChildren<TradeProgressGraphics>();
             graphics.StopTradingGraphics();
             // TODO: Insert explosion of items?
+
         }
     }
 

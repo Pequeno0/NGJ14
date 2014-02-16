@@ -22,8 +22,8 @@ public partial class TradingController : SingletonMonoBehaviour<TradingControlle
             var trade = this.trades[index];
             if(Time.time - trade.StartTime > trade.Duration)
             {
-                this.NetworkMessageController.StopTradingGraphics(trade.InitiaterPlayer.NetworkPlayer);
-                this.NetworkMessageController.StopTradingGraphics(trade.OtherPlayer.NetworkPlayer);
+                this.NetworkMessageController.StopTradingGraphics(false, trade.InitiaterPlayer.NetworkPlayer);
+                this.NetworkMessageController.StopTradingGraphics(false, trade.OtherPlayer.NetworkPlayer);
                 this.NetworkMessageController.AddToPlayerScoreOnServer(trade.InitiaterPlayer.NetworkPlayer, 1);
                 this.NetworkMessageController.AddToPlayerScoreOnServer(trade.OtherPlayer.NetworkPlayer, 1);
                 trade.InitiaterPed.IsTrading = false;

@@ -18,8 +18,8 @@ partial class NetworkMessageController : BaseMonoBehaviour
     public void StopTradingFromServer(TradePair trade)
     {
         
-        StopTradingGraphics(trade.InitiaterPlayer.NetworkPlayer);
-        StopTradingGraphics(trade.OtherPlayer.NetworkPlayer);
+        StopTradingGraphics(true, trade.InitiaterPlayer.NetworkPlayer);
+        StopTradingGraphics(true, trade.OtherPlayer.NetworkPlayer);
     }
 }
 
