@@ -7,6 +7,7 @@ public partial class TradingController : SingletonMonoBehaviour<TradingControlle
 {
     private readonly Dictionary<NetworkPlayer, bool> readyToTradeStates = new Dictionary<NetworkPlayer, bool>();
     private readonly List<TradePair> trades = new List<TradePair>();
+    public List<ItemPickup> Items = new List<ItemPickup>();
 
     private void FixedUpdate()
     {
@@ -67,6 +68,17 @@ public partial class TradingController : SingletonMonoBehaviour<TradingControlle
                 }
                 foreach(TradePair t in tradesToRemove)
                     trades.Remove(t);
+
+                
+
+                foreach (ItemPickup item in Items)
+                {
+                    if (Vector3.Distance(ped.Transform.position, item.transform.position) < 0.5f)
+                    {
+                        ped.HasItem = true;
+
+                    }
+                }
             }
         }
 
