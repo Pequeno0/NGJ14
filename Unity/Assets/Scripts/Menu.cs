@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Linq;
 using System.Collections;
 
 public class Menu : BaseMonoBehaviour
@@ -98,18 +99,27 @@ public class Menu : BaseMonoBehaviour
 
 	private void RenderPlayingGUI()
 	{
+        var player = this.PlayerController.Players.First(p => p.NetworkPlayer == Network.player);
+        var ped = this.PedController.Peds.First(p => p.Id == player.PedId);
+
 //		Debug.Log("Screen height: " + Screen.height);
-        var tradeGroupBounds = new Rect(Screen.width - 200.0f, 100.0f, 200.0f, 200.0f);
-        var readyToTrade = GUI.Toggle(tradeGroupBounds, this.IsReadyToTrade, "Ready to trade");
-        if (readyToTrade && !this.IsReadyToTrade)
+        var tradeGroupBounds = new Rect(Screen.width - 200.0f, Screen.height - 200.0f, 200.0f, 200.0f);
+        var originalColor = GUI.color;
+        GUI.color = ped.IsTrading ? Color.red : this.IsReadyToTrade ? Color.green : Color.white;
+        var readyToTrade = GUI.Toggle(tradeGroupBounds, this.IsReadyToTrade, "Ready to trade", GUI.skin.button);
+        GUI.color = originalColor;
+        if(!ped.IsTrading)
         {
-            this.IsReadyToTrade = true;
-            this.NetworkMessageController.SetReadyToTradeFromClient(this.IsReadyToTrade);
-        }
-        else if(!readyToTrade && this.IsReadyToTrade)
-        {
-            this.IsReadyToTrade = false;
-            this.NetworkMessageController.SetReadyToTradeFromClient(this.IsReadyToTrade);
+            if (readyToTrade && !this.IsReadyToTrade)
+            {
+                this.IsReadyToTrade = true;
+                this.NetworkMessageController.SetReadyToTradeFromClient(this.IsReadyToTrade);
+            }
+            else if (!readyToTrade && this.IsReadyToTrade)
+            {
+                this.IsReadyToTrade = false;
+                this.NetworkMessageController.SetReadyToTradeFromClient(this.IsReadyToTrade);
+            }
         }
 
 		int unitSize = Mathf.RoundToInt((float)Screen.height * 0.20f);
@@ -152,8 +162,11 @@ public class Menu : BaseMonoBehaviour
         {
             if (GUILayout.Button(server.gameName))
             {
-                this.errorMessage = string.Empty;
-                Network.Connect(server);
+                if (!string.IsNullOrEmpty(PlayerPrefsVars.PlayerName))
+                {
+                    this.errorMessage = string.Empty;
+                    Network.Connect(server);
+                }
             }
         }
         GUILayout.EndScrollView();
@@ -167,8 +180,11 @@ public class Menu : BaseMonoBehaviour
         this.gameName = GUILayout.TextField(this.gameName);
         if (GUILayout.Button("Host"))
         {
-            this.errorMessage = string.Empty;
-            Network.InitializeServer(1000, 12345, true);
+            if (!string.IsNullOrEmpty(this.gameName))
+            {
+                this.errorMessage = string.Empty;
+                Network.InitializeServer(1000, 12345, true);
+            }
         }
         GUILayout.EndHorizontal();
         GUILayout.Label(this.errorMessage);
