@@ -109,6 +109,7 @@ public class Menu : BaseMonoBehaviour
         GUI.color = ped.IsTrading || !ped.HasItem ? Color.red : this.IsReadyToTrade ? Color.green : Color.white;
         var readyToTrade = GUI.Toggle(tradeGroupBounds, this.IsReadyToTrade, "Ready to trade", GUI.skin.button);
         GUI.color = originalColor;
+
         if(!ped.IsTrading && ped.HasItem)
         {
             if (readyToTrade && !this.IsReadyToTrade)
