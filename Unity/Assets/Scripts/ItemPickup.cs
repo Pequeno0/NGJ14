@@ -17,6 +17,10 @@ public class ItemPickup : BaseMonoBehaviour {
 
 	void Update()
 	{
+		//Each ItemPickup point is being checked on the server. It updates whether it's pickupable or not, and if someone picks it up,
+		//it finds that person and enables their trading-capability.
+
+
 		if (Network.isServer)
 		{
 			if (isOnCooldown)
