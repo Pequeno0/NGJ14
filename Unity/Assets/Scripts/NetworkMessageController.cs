@@ -204,7 +204,7 @@ public partial class NetworkMessageController : BaseMonoBehaviour
 
     public void SetReadyToTradeFromServer(bool isReadyToTrade, NetworkPlayer networkPlayer)
     {
-        if (Network.isServer)
+        if (Network.isServer && Network.player.Equals(networkPlayer))
         {
             this.OnSetReadyToTradeFromServer(isReadyToTrade, networkPlayer);
         }
