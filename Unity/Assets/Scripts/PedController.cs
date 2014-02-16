@@ -41,11 +41,12 @@ public class PedController : SingletonMonoBehaviour<PedController>
         Debug.Log(string.Join(",", this.peds.Select(p => p.Id.ToString()).ToArray()));
     }
 
-    public void UpdatePedFromServer(int id, Vector3 position, Vector3 rotation, Vector3 direction, bool trading, bool backstabbing)
+    public void UpdatePedFromServer(int id, Vector3 position, Vector3 rotation, Vector3 direction, bool trading, bool backstabbing, bool hasItem)
     {
         var ped = this.peds.First(p => p.Id == id);
         ped.Transform.position = position;
         ped.Transform.rotation = Quaternion.Euler(rotation);
+        ped.HasItem = hasItem;
         CharacterAnimator pedCA = ped.Transform.GetChild(0).GetComponent<CharacterAnimator>();
         pedCA.walkingX = direction.x;
         pedCA.walkingY = direction.y;
@@ -91,7 +92,7 @@ public class PedController : SingletonMonoBehaviour<PedController>
                         ped.DirectionZeroSent = true;
                     else
                         ped.DirectionZeroSent = false;
-                    this.NetworkMessageController.UpdatePed(ped.Id, ped.Transform.position, ped.Transform.eulerAngles, ped.Transform.rigidbody.velocity.normalized, ped.IsTrading, ped.IsBackstabbing);
+                    this.NetworkMessageController.UpdatePed(ped.Id, ped.Transform.position, ped.Transform.eulerAngles, ped.Transform.rigidbody.velocity.normalized, ped.IsTrading, ped.IsBackstabbing, ped.HasItem);
                     ped.LastPosSent = ped.Transform.position;
                     //ped.FramesSinceLastUpdate = 0;
                 }

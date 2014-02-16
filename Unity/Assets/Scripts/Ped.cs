@@ -51,4 +51,10 @@ public class Ped
         get;
         set;
     }
+
+    public bool HasItem
+    {
+        get;
+        set;
+    }
 }
