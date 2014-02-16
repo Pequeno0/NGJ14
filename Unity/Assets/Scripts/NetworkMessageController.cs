@@ -22,20 +22,20 @@ public partial class NetworkMessageController : BaseMonoBehaviour
         this.PedController.AddPed(id, position, rotation);
     }
 
-    public void UpdatePed(int id, Vector3 position, Vector3 rotation, Vector3 direction, bool trading, bool backstabbing)
+    public void UpdatePed(int id, Vector3 position, Vector3 rotation, Vector3 direction, bool trading, bool backstabbing, bool hasItem)
     {
         if (Network.isServer)
         {
-            this.Unreliable.RPC("OnUpdatePed", RPCMode.All, id, position, rotation, direction, trading, backstabbing);
+            this.Unreliable.RPC("OnUpdatePed", RPCMode.All, id, position, rotation, direction, trading, backstabbing, hasItem);
         }
     }
 
     [RPC]
-    private void OnUpdatePed(int id, Vector3 position, Vector3 rotation, Vector3 direction, bool trading, bool backstabbing, NetworkMessageInfo messageInfo)
+    private void OnUpdatePed(int id, Vector3 position, Vector3 rotation, Vector3 direction, bool trading, bool backstabbing, bool hasItem, NetworkMessageInfo messageInfo)
     {
         using (new TimeMeasure("OnUpdatePed"))
         {
-            this.PedController.UpdatePedFromServer(id, position, rotation, direction, trading, backstabbing);
+            this.PedController.UpdatePedFromServer(id, position, rotation, direction, trading, backstabbing, hasItem);
         }
     }
 
