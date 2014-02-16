@@ -141,13 +141,13 @@ public class Menu : BaseMonoBehaviour
 		GUI.DrawTexture(leftArrowRect, leftArrow, ScaleMode.StretchToFill);
 		GUI.DrawTexture(rightArrowRect, rightArrow, ScaleMode.StretchToFill);
 
-        var bounds = new Rect(Screen.width * 0.5f - 200.0f, Screen.height * 0.5f - 200.0f, 400.0f, 400.0f);
-        GUI.BeginGroup(bounds);
-        foreach (KeyValuePair<string, TimeMeasure.Data> x in TimeMeasure.Stats)
-        {
-            GUILayout.Label(string.Concat(x.Key, " [Count=", x.Value.Count, " Min=", x.Value.Min, " Max=", x.Value.Max, " Avg=", x.Value.Elapsed / x.Value.Count, "]"));
-        }
-        GUI.EndGroup();
+        //var bounds = new Rect(Screen.width * 0.5f - 200.0f, Screen.height * 0.5f - 200.0f, 400.0f, 400.0f);
+        //GUI.BeginGroup(bounds);
+        //foreach (KeyValuePair<string, TimeMeasure.Data> x in TimeMeasure.Stats)
+        //{
+        //    GUILayout.Label(string.Concat(x.Key, " [Count=", x.Value.Count, " Min=", x.Value.Min, " Max=", x.Value.Max, " Avg=", x.Value.Elapsed / x.Value.Count, "]"));
+        //}
+        //GUI.EndGroup();
 
 
 //		Rect upLeft = new Rect(Menu.Instance.leftArrowRect.xMin, Menu.Instance.upArrowRect.yMin, Menu.Instance.leftArrowRect.width, Menu.Instance.upArrowRect.height);
