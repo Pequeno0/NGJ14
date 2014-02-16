@@ -5,7 +5,7 @@ AnimationClip:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Character1WalkUp
+  m_Name: Character2WalkUp
   serializedVersion: 4
   m_AnimationType: 2
   m_Compressed: 0
@@ -18,21 +18,21 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 21300000, guid: c19270525d92cdb4eaf3ffc024bb1e4c, type: 3}
+      value: {fileID: 21300000, guid: 5bff076d3e6e32f47ac71eb198ed90d5, type: 3}
     - time: .0833333358
-      value: {fileID: 21300000, guid: 8a1e8c0ba5a5c5f4fa3f6e8bd44ac411, type: 3}
+      value: {fileID: 21300000, guid: b4cb69cf81b39cb418d7a962ff2789e5, type: 3}
     - time: .166666672
-      value: {fileID: 21300000, guid: 726fab2e993e8b64caf32eff9040382b, type: 3}
+      value: {fileID: 21300000, guid: e876cafdfa687864aa08bf4a88d8abb0, type: 3}
     - time: .25
-      value: {fileID: 21300000, guid: 53cc0946bf37b21449fd17ece6618f9c, type: 3}
+      value: {fileID: 21300000, guid: 1a99e4df78cbd1f439f5dd517ee9576d, type: 3}
     - time: .333333343
-      value: {fileID: 21300000, guid: bcaf3f73ed88deb42adcda0d8b3a3d49, type: 3}
+      value: {fileID: 21300000, guid: 7dedf352eac73124f97850a15633a0fa, type: 3}
     - time: .416666657
-      value: {fileID: 21300000, guid: 8acc3f375dbd59c4494d3c99b2a8eeb8, type: 3}
+      value: {fileID: 21300000, guid: cc1e2fba254562d42b2087189e8758cc, type: 3}
     - time: .5
-      value: {fileID: 21300000, guid: ceebeddedc546da4a98cd44450029460, type: 3}
+      value: {fileID: 21300000, guid: 16000b122a2eaff4b80a2c720ca60b19, type: 3}
     - time: .583333313
-      value: {fileID: 21300000, guid: fae543e1fbd7f9847aa9cdc340650deb, type: 3}
+      value: {fileID: 21300000, guid: 0bf4dedca59cdd843bf2a526ee57dc6f, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
