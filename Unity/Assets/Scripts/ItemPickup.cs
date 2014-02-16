@@ -3,13 +3,34 @@ using System.Collections;
 
 public class ItemPickup : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
+	public int globalID;
+	public bool isOnCooldown;
+
+	public bool ConsumeItemServer()
+	{
+		if (isOnCooldown)
+		{
+			return false;		
+		}
+		else
+		{
+			renderer.enabled = true;
+			isOnCooldown = true;
+		}
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+
+	public bool RespawnItemServer()
+	{
+
 	}
+
+
+
+	public void AssignID(int id)
+	{
+		globalID = id;
+	}
+
+
+
 }
