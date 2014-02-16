@@ -384,6 +384,9 @@ MonoBehaviour:
     width: 0
     height: 0
   logo: {fileID: 2800000, guid: 5e7b72a21d21db34399ea36a58367b1e, type: 3}
+  noItemLogo: {fileID: 2800000, guid: 08677620e65df3445a13764e19ac6eb3, type: 3}
+  itemNoTradeLogo: {fileID: 2800000, guid: 7571e8846fa454549a747f2a142a5132, type: 3}
+  itemTradeLogo: {fileID: 2800000, guid: aa87db3684ff506449d31a37e4568a54, type: 3}
 --- !u!4 &1356752177
 Transform:
   m_ObjectHideFlags: 0
