@@ -83,7 +83,7 @@ public class PedController : SingletonMonoBehaviour<PedController>
                 ped.Transform.rigidbody.velocity = ped.Direction * 1f * MOVEMENTSPEED;
 
 
-                if (ped.Transform.rigidbody.velocity.magnitude != 0f || ped.LastPosSent == Vector3.zero || Vector3.Distance(ped.LastPosSent, ped.Transform.position) > 0.1f || !ped.DirectionZeroSent)
+                if (ped.Transform.rigidbody.velocity.magnitude != 0f || ped.LastPosSent == Vector3.zero || Vector3.Distance(ped.LastPosSent, ped.Transform.position) > 0.1f || !ped.DirectionZeroSent || ped.IsTrading)
                 {
                     if (ped.Transform.rigidbody.velocity.normalized == Vector3.zero)
                         ped.DirectionZeroSent = true;
