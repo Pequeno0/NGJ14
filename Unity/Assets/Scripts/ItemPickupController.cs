@@ -1,10 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 
 public class ItemPickupController : SingletonMonoBehaviour<ItemPickupController> {
 
 	private ItemPickup[] itemPickups;
+
+	public ItemPickup[] ItemPickups
+	{
+		get
+		{
+			if(itemPickups == null)
+			{
+				Setup ();
+			}
+			return itemPickups;
+		}
+	}
 
 	public void Setup()
 	{
@@ -12,8 +25,12 @@ public class ItemPickupController : SingletonMonoBehaviour<ItemPickupController>
 
 		itemPickups = itemPickups.OrderBy(i => i.transform.position.GetHashCode()).ToArray();
 
+//		Debug.Log(itemPickups.Count.t);
+		Debug.Log(itemPickups.Length);
+
 		for (int i = 0; i < itemPickups.Length; i++)
 		{
+
 			itemPickups[i].globalID = i;
 		}
 
@@ -21,11 +38,11 @@ public class ItemPickupController : SingletonMonoBehaviour<ItemPickupController>
 
 	public ItemPickup GetItemPickup(int globalID)
 	{
-		for (int i = 0; i < itemPickups.Length; i++)
+		for (int i = 0; i < ItemPickups.Length; i++)
 		{
-			if (itemPickups[i].globalID == globalID)
+			if (ItemPickups[i].globalID == globalID)
 			{
-				return itemPickups[i];
+				return ItemPickups[i];
 			}
 			
 		}

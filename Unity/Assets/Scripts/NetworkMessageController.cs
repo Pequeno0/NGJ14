@@ -129,9 +129,6 @@ public partial class NetworkMessageController : BaseMonoBehaviour
             temp.name = "Border left";
             temp.parent = borderParent;
         }
-
-		ItemPickupController.Setup();
-
     }
 
     public void PrePlay()
@@ -148,6 +145,7 @@ public partial class NetworkMessageController : BaseMonoBehaviour
     public void Play()
     {
         this.Reliable.RPC("OnPlay", RPCMode.All);
+		ItemPickupController.Setup();
     }
 
     [RPC]
