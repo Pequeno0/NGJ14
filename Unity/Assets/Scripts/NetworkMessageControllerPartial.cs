@@ -17,8 +17,11 @@ public partial class NetworkMessageController : BaseMonoBehaviour
     [RPC]
     public void UpdateScoreOnClient(NetworkPlayer player, int newScore)
     {
-        var p = PlayerController.Players.FirstOrDefault(m => m.NetworkPlayer == player);
-        p.Score = newScore;
+        using (new TimeMeasure("UpdateScoreOnClient"))
+        {
+            var p = PlayerController.Players.FirstOrDefault(m => m.NetworkPlayer == player);
+            p.Score = newScore;
+        }
     }
 
     public void SetPlayerInfo(string name, NetworkPlayer player)
@@ -29,7 +32,10 @@ public partial class NetworkMessageController : BaseMonoBehaviour
     [RPC]
     private void OnSetPlayerInfo(string name, NetworkPlayer player)
     {
-        //var networkPlayer = messageInfo.GetActualSender();
-        this.PlayerController.SetPlayerName(player, name);
+        using (new TimeMeasure("OnSetPlayerInfo"))
+        {
+            //var networkPlayer = messageInfo.GetActualSender();
+            this.PlayerController.SetPlayerName(player, name);
+        }
     }
 }

@@ -25,20 +25,25 @@ public class TimeMeasure : IDisposable
 
         lock (TimeMeasure.Stats)
         {
-            var stats = TimeMeasure.Stats[this.name];
-            stats.Elapsed += elapsed;
-            stats.Count++;
-            stats.Min = Math.Min(stats.Min, elapsed);
-            stats.Max = Math.Max(stats.Max, elapsed);
-            TimeMeasure.Stats[this.name] = stats;
+            Data data;
+            if (!TimeMeasure.Stats.TryGetValue(this.name, out data))
+            {
+                data = new Data();
+                TimeMeasure.Stats.Add(this.name, data);
+            }
+            
+            data.Elapsed += elapsed;
+            data.Count++;
+            data.Min = data.Min.HasValue ? Math.Min(data.Min.Value, elapsed) : elapsed;
+            data.Max = data.Max.HasValue ? Math.Max(data.Max.Value, elapsed) : elapsed;
         }
     }
 
-    public struct Data
+    public class Data
     {
         public int Count;
         public long Elapsed;
-        public long Min;
-        public long Max;
+        public Nullable<long> Min;
+        public Nullable<long> Max;
     }
 }

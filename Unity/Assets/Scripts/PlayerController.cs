@@ -36,6 +36,16 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
 
     private void OnPlayerDisconnected(NetworkPlayer networkPlayer)
     {
+        if (Network.isServer)
+        {
+            var player = this.players.First(p => p.NetworkPlayer.Equals(networkPlayer));
+            var ped = this.PedController.Peds.First(p => p.Id == player.PedId);
+            this.NetworkMessageController.RemovePlayerFromServer(ped.Id, networkPlayer);
+        }
+    }
+
+    public void RemovePlayer(NetworkPlayer networkPlayer)
+    {
         this.players.RemoveAll(p => p.NetworkPlayer.Equals(networkPlayer));
     }
 
@@ -91,8 +101,8 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
         
         if (this.GameStateController.CurrentGameState == GameState.Playing)
         {
-            float middleX = Screen.width / 2;
-            float middleY = Screen.height / 2;
+            //float middleX = Screen.width / 2;
+            //float middleY = Screen.height / 2;
             Vector3 direction = Vector3.zero;
             if (Application.platform == RuntimePlatform.Android)
             {

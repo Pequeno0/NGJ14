@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class Ped
 {
@@ -33,7 +34,7 @@ public class Ped
         set;
     }
 
-    public Vector3 LastPosSent
+    public Nullable<Vector3> LastPosSent
     {
         get;
         set;
