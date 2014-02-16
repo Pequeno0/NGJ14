@@ -39,7 +39,9 @@ public class PlayerController : SingletonMonoBehaviour<PlayerController>
         if (Network.isServer)
         {
             var player = this.players.First(p => p.NetworkPlayer.Equals(networkPlayer));
-            var ped = this.PedController.Peds.First(p => p.Id == player.PedId);
+            var ped = this.PedController.Peds.FirstOrDefault(p => p.Id == player.PedId);
+            if (ped == null)
+                return;
             this.NetworkMessageController.RemovePlayerFromServer(ped.Id, networkPlayer);
         }
     }

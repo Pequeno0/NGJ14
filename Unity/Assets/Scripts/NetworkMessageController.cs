@@ -10,8 +10,9 @@ public partial class NetworkMessageController : BaseMonoBehaviour
     private GameObject fail;
     private GameObject success;
 
-    public void Start()
+    protected override void Start()
     {
+        base.Start();
         fail = Resources.Load<GameObject>("FlashRing01");
         success = Resources.Load<GameObject>("ShockFlash");
     }

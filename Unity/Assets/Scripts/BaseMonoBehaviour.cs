@@ -18,6 +18,7 @@ public class BaseMonoBehaviour : MonoBehaviour
     {
         get;
         private set;
+
     }
 
     public NetworkMessageController NetworkMessageController
