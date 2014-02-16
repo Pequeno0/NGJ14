@@ -22,18 +22,21 @@ public partial class NetworkMessageController : BaseMonoBehaviour
         this.PedController.AddPed(id, position, rotation);
     }
 
-    public void UpdatePed(int id, Vector3 position, Vector3 rotation, Vector3 direction, bool trading, bool backstabbing, bool hasItem)
+    public void UpdatePed(int id, Vector3 position, Vector3 rotation, Vector3 direction, bool trading, bool backstabbing)
     {
         if (Network.isServer)
         {
-            this.Unreliable.RPC("OnUpdatePed", RPCMode.All, id, position, rotation, direction, trading, backstabbing, hasItem);
+            this.Unreliable.RPC("OnUpdatePed", RPCMode.All, id, position, rotation, direction, trading, backstabbing);
         }
     }
 
     [RPC]
-    private void OnUpdatePed(int id, Vector3 position, Vector3 rotation, Vector3 direction, bool trading, bool backstabbing, bool hasItem, NetworkMessageInfo messageInfo)
+    private void OnUpdatePed(int id, Vector3 position, Vector3 rotation, Vector3 direction, bool trading, bool backstabbing, NetworkMessageInfo messageInfo)
     {
-        this.PedController.UpdatePedFromServer(id, position, rotation, direction, trading, backstabbing, hasItem);
+        using (new TimeMeasure("OnUpdatePed"))
+        {
+            this.PedController.UpdatePedFromServer(id, position, rotation, direction, trading, backstabbing);
+        }
     }
 
     [RPC]
@@ -152,7 +155,7 @@ public partial class NetworkMessageController : BaseMonoBehaviour
 
     public void StartTradeGrahicsOnClients(float duration, NetworkPlayer networkPlayer)
     {
-        //Debug.Log(string.Concat("StartTradeGrahicsOnClients[NetworkPlayer=", networkPlayer, "]"));
+        Debug.Log(string.Concat("StartTradeGrahicsOnClients[NetworkPlayer=", networkPlayer, "]"));
         this.Reliable.RPC("OnStartTradeGrahicsOnClients", RPCMode.All, duration, networkPlayer);
     }
 
