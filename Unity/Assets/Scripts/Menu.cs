@@ -33,6 +33,10 @@ public class Menu : BaseMonoBehaviour
 
     public Texture2D logo;
 
+	public Texture2D noItemLogo;
+	public Texture2D itemNoTradeLogo;
+	public Texture2D itemTradeLogo;
+
     public bool IsReadyToTrade
     {
         get;
@@ -110,9 +114,15 @@ public class Menu : BaseMonoBehaviour
 //		Debug.Log("Screen height: " + Screen.height);
         var tradeGroupBounds = new Rect(Screen.width - 200.0f, Screen.height - 200.0f, 200.0f, 200.0f);
         var originalColor = GUI.color;
-        GUI.color = ped.IsTrading || !ped.HasItem ? Color.red : this.IsReadyToTrade ? Color.green : Color.white;
-        var readyToTrade = GUI.Toggle(tradeGroupBounds, this.IsReadyToTrade, "Ready to trade", GUI.skin.button);
-        GUI.color = originalColor;
+
+
+
+		Texture currentTexture = ped.IsTrading || !ped.HasItem ? noItemLogo : this.IsReadyToTrade ? itemTradeLogo : itemNoTradeLogo;
+
+
+//        GUI.color = ped.IsTrading || !ped.HasItem ? Color.red : this.IsReadyToTrade ? Color.green : Color.white;
+        var readyToTrade = GUI.Toggle(tradeGroupBounds, this.IsReadyToTrade, currentTexture, GUI.skin.button);
+//        GUI.color = originalColor;
 
         if(!ped.IsTrading && ped.HasItem)
         {
